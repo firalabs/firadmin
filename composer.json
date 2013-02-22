@@ -1,6 +1,7 @@
 {
     "name": "firalabs/firadmin",
-    "description": "",
+    "description": "Admin package used by Laravel 4",
+    "keywords": ["laravel","admin","user"],
     "authors": [
         {
             "name": "Maxime Beaudoin",
@@ -12,13 +13,7 @@
         "laravelbook/ardent": "dev-master"
     },    
     "require-dev": {
-        "guzzle/guzzle": "3.2.*@dev",
-        "mockery/mockery": "0.7.2",
-        "illuminate/routing": "4.0.x",
-        "illuminate/support": "4.0.x", 
-        "illuminate/view": "4.0.x", 
-        "illuminate/filesystem": "4.0.x", 
-        "illuminate/config": "4.0.x"
+        "mockery/mockery": "0.7.2"
     },
     "autoload": {
         "classmap": [

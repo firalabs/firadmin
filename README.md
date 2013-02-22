@@ -1,2 +1,2 @@
-#Laradmin
-##Basic admin panel with login and user controller implementation
+#Firadmin
+###Basic admin panel with login and user controller implementation
