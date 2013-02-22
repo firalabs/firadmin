@@ -1,6 +1,6 @@
 {
     "name": "firalabs/firadmin",
-    "description": "Admin package used by Laravel 4",
+    "description": "Basic admin panel for Laravel 4 with login and user controller implementation",
     "keywords": ["laravel","admin","user"],
     "authors": [
         {
