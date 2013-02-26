@@ -134,6 +134,10 @@ class UserController extends BaseController {
 		//Update user
 		$user->username = Input::get('username');
 		$user->email = Input::get('email');
+		
+		//Just before save, we don't want to auto hash the password, replace this later
+		$user->autoHashPasswordAttributes = false;
+		
 			
 		//Save
 		if($user->save($rules)){
