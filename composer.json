@@ -10,7 +10,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "laravelbook/ardent": "dev-master"
+        "laravelbook/ardent": "dev-master",
+		"zendframework/zend-permissions-acl": "2.1.*@dev"
     },    
     "require-dev": {
         "mockery/mockery": "0.7.2"

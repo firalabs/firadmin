@@ -35,9 +35,41 @@ return array(
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Enabled package routing
+	| Enabled the default routing provided by the package
 	|--------------------------------------------------------------------------
 	*/
-	'routing' => true
-
+	'default_routing' => true,
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Init automaticly the ACL permission manager
+	|--------------------------------------------------------------------------
+	*/
+	'init_permissions' => true,
+	
+	/*
+	|--------------------------------------------------------------------------
+	| ACL available resources list
+	|--------------------------------------------------------------------------
+	*/
+	'resources' => array(
+		'user'
+	),
+	
+	/*
+	|--------------------------------------------------------------------------
+	| ACL available roles list
+	|--------------------------------------------------------------------------
+	*/
+	'roles' => array(
+		/*
+		 * Grant all privileges to the administrator roles
+		 */
+		'administrator'  => true,
+	
+		/*
+		 * Granted basics CRUD privileges to the moderator role on the user resource
+		 */
+		'moderator' => array('user' => array('create', 'read', 'update', 'delete'))	
+	)
 );

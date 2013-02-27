@@ -3,10 +3,8 @@
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 
 /**
@@ -56,11 +54,8 @@ class LoginController extends BaseController {
 		//If the login attempt fail
 		if ( !Auth::attempt($credentials, $remember) ){
 			
-			//We have a error
-			Session::flash('error', '1');
-			
 			//Redirect to login page
-			return Redirect::to('admin/login')->with('reason', Lang::get('firadmin::admin.messages.attempt-fail'));
+			return Redirect::to('admin/login')->with('reason', Lang::get('firadmin::admin.messages.attempt-fail'))->with('error', 1);
 			
 		//Else attempt succed
 		} else {
@@ -97,9 +92,7 @@ class LoginController extends BaseController {
 	 */
 	public function postForgotPassword()
 	{
-		$credentials = array('email' => Input::get('email'));
-
-    	return Password::remind($credentials);
+    	return Password::remind(array('email' => Input::get('email')));
 	}
 	
 	/**
@@ -115,9 +108,7 @@ class LoginController extends BaseController {
 	 */
 	public function postResetPassword($token)
 	{
-		$credentials = array('email' => Input::get('email'));
-
-	    return Password::reset($credentials, function($user, $password)
+	    return Password::reset(array('email' => Input::get('email')), function($user, $password)
 	    {
 	        $user->password = $password;
 	

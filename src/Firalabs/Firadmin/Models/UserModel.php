@@ -3,6 +3,7 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use LaravelBook\Ardent\Ardent;
+use Illuminate\Support\Facades\Hash;
 
 class UserModel extends Ardent implements UserInterface, RemindableInterface {
 

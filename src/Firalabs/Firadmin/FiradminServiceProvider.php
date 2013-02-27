@@ -1,6 +1,7 @@
 <?php namespace Firalabs\Firadmin;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class FiradminServiceProvider extends ServiceProvider {
 
@@ -28,8 +29,26 @@ class FiradminServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//Include routes
-		include __DIR__.'/routes.php';
+		//Load package config
+		$this->app['config']->package('firalabs/firadmin', __DIR__.'/../../config');
+		
+		//If we want to initialize automaticly the permissions manager in the application
+		if(Config::get('firadmin::init_permissions') === true){
+		
+			//Create the permissions object in the application instance
+			$this->app['permissions'] = new Permissions(
+				Config::get('firadmin::roles'),
+				Config::get('firadmin::resources')
+			);
+			
+		}
+        
+		//If we want to use the default routing provided by the package
+		if(Config::get('firadmin::default_routing') === true){
+			
+			//Include routes
+			include __DIR__.'/routes.php';
+		}
 	}
 
 	/**
