@@ -3,7 +3,13 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use LaravelBook\Ardent\Ardent;
+use Illuminate\Support\Facades\Hash;
 
+/**
+ * User model
+ * 
+ * @author maxime.beaudoin
+ */
 class UserModel extends Ardent implements UserInterface, RemindableInterface {
 
 	/**
@@ -94,5 +100,32 @@ class UserModel extends Ardent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+	
+	/**
+	 * Roles relations
+	 */
+	public function roles()
+    {
+        return $this->hasMany('Firalabs\Firadmin\Models\UserRolesModel', 'user_id');
+    }
+    
+    /**
+     * Get the roles name list
+     * 
+     * @return array
+     */
+    public function getRoles(){
+    	
+    	//Default
+    	$roles = array();
+    	
+    	//Add each role name in the list
+    	foreach ($this->roles as $role){
+    		$roles[] = $role->role;
+    	}
+    	
+    	//Return the role list
+    	return $roles;    	
+    }
 
 }

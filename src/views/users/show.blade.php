@@ -19,6 +19,14 @@
 						<td><?php echo $user->username?></td>
 					</tr>
 					<tr>
+						<td><strong>Roles</strong></td>
+						<td>
+							<?php foreach ($user->roles as $role){?>
+							<?php echo $role->role?><br>
+							<?php }?>
+						</td>
+					</tr>
+					<tr>
 						<td><strong>Created at</strong></td>
 						<td><?php echo $user->created_at?></td>
 					</tr>

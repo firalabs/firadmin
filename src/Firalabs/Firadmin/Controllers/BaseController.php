@@ -7,7 +7,7 @@ use Illuminate\Routing\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Base controller for the package
+ * Base controller used by the package
  * 
  * @author maxime.beaudoin
  */

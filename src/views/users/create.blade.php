@@ -22,6 +22,13 @@
 					<label><?php echo Lang::get('admin.password_confirmation')?></label>
 					<input type="password" name="password_confirmation" value="">
 					
+					<label><?php echo Lang::get('admin.roles')?></label>
+					<?php foreach (Config::get('firadmin::roles') as $role => $permissions){?>
+					<label class="checkbox">
+					<input type="checkbox" name="roles[]" value="<?php echo $role?>"><?php echo ucfirst($role)?>
+					</label>
+					<?php }?>
+					
 					<div class="form-actions">
 						<button class="btn btn-primary"><?php echo Lang::get('admin.store-user')?></button>
 						<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('admin.cancel')?></a>

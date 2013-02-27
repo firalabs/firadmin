@@ -33,6 +33,13 @@ $('document').ready(function(){
 							
 							<label><?php echo Lang::get('admin.email')?></label>
 							<input type="text" name="email" value="<?php echo Input::old('email', isset($user)?$user->email:'')?>">
+					
+							<label><?php echo Lang::get('admin.roles')?></label>
+							<?php foreach (Config::get('firadmin::roles') as $role => $permissions){?>
+							<label class="checkbox">
+							<input type="checkbox" name="roles[]" value="<?php echo $role?>" <?php echo in_array($role, $user->getRoles())?'checked="checked"':''?>><?php echo ucfirst($role)?>
+							</label>
+							<?php }?>
 							
 							<div class="form-actions">
 								<button class="btn btn-primary"><?php echo Lang::get('admin.update-user')?></button>

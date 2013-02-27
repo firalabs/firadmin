@@ -1,22 +1,25 @@
 <?php namespace Firalabs\Firadmin\Controllers;
 
+use Firalabs\Firadmin\Models\UserRolesModel;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 
+/**
+ * Controller used for users managment
+ * 
+ * @author maxime.beaudoin
+ */
 class UserController extends BaseController {
 	
 	/**
 	 * Constructor
 	 */
 	public function __construct()
-    {    	
+    {    	    	
     	//Add csrf protection when posting forms
     	$this->beforeFilter('csrf', array('on' => array('post', 'put')));
     	
@@ -33,9 +36,9 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
+	{		
 		$this->layout->content = View::make('firadmin::users.index', array(
-			'users' => $this->user->all()
+			'users' => $this->user->with('roles')->get()
 		));
 	}
 
@@ -55,10 +58,23 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		
+	{		
 		//Save
 		if($this->user->save()){
+			
+			//If we have roles
+			if(Input::get('roles')){
+				
+				//foreach role
+				foreach (Input::get('roles') as $role) {
+				
+					//Create role
+					$role = new UserRolesModel(array('role' => $role));				
+			
+					//Insert role
+					$this->user->roles()->save($role);
+				}
+			}
 	
 			//Redirect
 			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.store-success'));
@@ -134,9 +150,29 @@ class UserController extends BaseController {
 		//Update user
 		$user->username = Input::get('username');
 		$user->email = Input::get('email');
+		
+		//Just before save, we don't want to auto hash the existing password, replace this later if possible
+		$user->autoHashPasswordAttributes = false;		
 			
 		//Save
-		if($user->save($rules)){
+		if($user->save($rules)){			
+			
+			//Delete the user roles
+			$user->roles()->delete();		
+			
+			//If we have roles
+			if(Input::get('roles')){
+				
+				//foreach role
+				foreach (Input::get('roles') as $role) {
+				
+					//Create role
+					$role = new UserRolesModel(array('role' => $role));				
+			
+					//Insert role
+					$user->roles()->save($role);
+				}
+			}
 	
 			//Redirect
 			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-success'));
@@ -206,7 +242,10 @@ class UserController extends BaseController {
 			//Error reason
 			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
 			
-		} else {
+		} else {		
+			
+			//Delete the user roles
+			$user->roles()->delete();
 			
 			//Delete the user
 			$user->delete($id);
