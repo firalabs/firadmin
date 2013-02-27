@@ -4,10 +4,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 
 class UserController extends BaseController {
@@ -55,8 +51,7 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		
+	{		
 		//Save
 		if($this->user->save()){
 	
@@ -135,9 +130,8 @@ class UserController extends BaseController {
 		$user->username = Input::get('username');
 		$user->email = Input::get('email');
 		
-		//Just before save, we don't want to auto hash the password, replace this later
-		$user->autoHashPasswordAttributes = false;
-		
+		//Just before save, we don't want to auto hash the existing password, replace this later if possible
+		$user->autoHashPasswordAttributes = false;		
 			
 		//Save
 		if($user->save($rules)){
