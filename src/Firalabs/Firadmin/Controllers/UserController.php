@@ -29,6 +29,19 @@ class UserController extends BaseController {
     	//Create user object
     	$this->user = new $model_name;
     }
+    
+    /**
+     * (non-PHPdoc)
+     * @see Firalabs\Firadmin\Controllers.BaseController::setupLayout()
+     */
+    protected function setupLayout()
+    {
+    	//Trigger parent
+    	parent::setupLayout();
+		
+		//Active menu
+		$this->layout->active_menu = 'admin/user';
+    }
 
 	/**
 	 * Display a listing of the resource.

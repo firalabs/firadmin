@@ -29,6 +29,9 @@ class BaseController extends Controller {
 		//Set navigation
 		$this->layout->navigation = Config::get('firadmin::navigation');
 		
+		//Default we don't have active menu 
+		$this->layout->active_menu = '';	
+		
 		//Set application title
 		$this->layout->title = Config::get('firadmin::title');
 		

@@ -7,10 +7,6 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<!-- Le styles -->
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet">
-
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 		<script src="../assets/js/html5shiv.js"></script>
@@ -25,6 +21,9 @@
 			padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 		}
     </style>
+
+	<!-- Le styles -->
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
 	
 </head>
 
@@ -32,7 +31,7 @@
 
 	<?php if(Request::segment(2) !== 'login'):?>
 	<!-- Main navigation -->
-	<div class="navbar navbar navbar-fixed-top">
+	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -53,7 +52,7 @@
 					</ul>
 					<ul class="nav">
 						<?php foreach ($navigation as $uri => $title):?>
-						<li <?php echo (Request::path() == $uri)?'class="active"':'';?>><a href="<?php echo URL::to($uri);?>"><?php echo $title;?></a></li>
+						<li <?php echo ($active_menu == $uri)?'class="active"':'';?>><a href="<?php echo URL::to($uri);?>"><?php echo $title;?></a></li>
 						<?php endforeach;?>
 						
 					</ul>
