@@ -37,6 +37,11 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{		
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'update') !== true){
+			return app()->permissions->isAllowed('user', 'updated');
+		}
+		
 		$this->layout->content = View::make('firadmin::users.index', array(
 			'users' => $this->user->with('roles')->get()
 		));
@@ -48,8 +53,23 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function create()
-	{
-		$this->layout->content = View::make('firadmin::users.create');
+	{		
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'create') !== true){
+			return app()->permissions->isAllowed('user', 'updated');
+		}
+		
+		//Check if we have selected roles
+		if(Input::old('roles')){
+			
+			$selected_roles = Input::old('roles');
+                        
+		 //Else set to default
+		} else {
+			$selected_roles = array();
+		}
+		
+		$this->layout->content = View::make('firadmin::users.create', array('selected_roles' => $selected_roles));
 	}
 
 	/**
@@ -58,7 +78,12 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{		
+	{			
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'create') !== true){
+			return app()->permissions->isAllowed('user', 'create');
+		}
+				
 		//Save
 		if($this->user->save()){
 			
@@ -96,7 +121,12 @@ class UserController extends BaseController {
 	 * @return Response
 	 */
 	public function show($id)
-	{		
+	{			
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'read') !== true){
+			return app()->permissions->isAllowed('user', 'read');
+		}
+				
 		$this->layout->content = View::make('firadmin::users.show', array(
 			'user' => $this->user->find($id)
 		));
@@ -109,8 +139,27 @@ class UserController extends BaseController {
 	 */
 	public function edit($id)
 	{
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'update') !== true){
+			return app()->permissions->isAllowed('user', 'update');
+		}	
+		
+		//Get the user data
+		$user = $this->user->find($id);
+		
+		//Check if we have selected roles
+		if(Input::old('roles')){
+			
+			$selected_roles = Input::old('roles');
+                        
+		 //Else set to default
+		} else {
+			$selected_roles = $user->getRoles();
+		}
+		
 		$this->layout->content = View::make('firadmin::users.edit', array(
-			'user' => $this->user->find($id)
+			'user' => $user,
+			'selected_roles' => $selected_roles
 		));
 	}
 
@@ -121,6 +170,10 @@ class UserController extends BaseController {
 	 */
 	public function update($id)
 	{
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'update') !== true){
+			return app()->permissions->isAllowed('user', 'update');
+		}
 			
 		//Get the user in database
 		$user = $this->user->find($id);
@@ -195,6 +248,10 @@ class UserController extends BaseController {
 	 */
 	public function changePassword($id)
 	{
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'update') !== true){
+			return app()->permissions->isAllowed('user', 'update');
+		}
 			
 		//Get the user in database
 		$user = $this->user->find($id);
@@ -233,6 +290,11 @@ class UserController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+		//Check permission
+		if(app()->permissions->isAllowed('user', 'delete') !== true){
+			return app()->permissions->isAllowed('user', 'delete');
+		}
+		
 		//Get the user in database
 		$user = $this->user->find($id);
 		

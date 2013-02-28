@@ -11,26 +11,26 @@
 				<fieldset>
 					
 					<label><?php echo Lang::get('admin.username')?></label>
-					<input type="text" name="username" value="<?php echo Input::old('username')?>">
+					<?php echo Form::text('username', Input::old('username'));?>
 					
 					<label><?php echo Lang::get('admin.email')?></label>
-					<input type="text" name="email" value="<?php echo Input::old('email')?>">
+					<?php echo Form::text('email', Input::old('email'));?>
 					
 					<label><?php echo Lang::get('admin.password')?></label>
-					<input type="password" name="password" value="">
+					<?php echo Form::password('password');?>
 					
 					<label><?php echo Lang::get('admin.password_confirmation')?></label>
-					<input type="password" name="password_confirmation" value="">
+					<?php echo Form::password('password_confirmation');?>
 					
 					<label><?php echo Lang::get('admin.roles')?></label>
 					<?php foreach (Config::get('firadmin::roles') as $role => $permissions){?>
 					<label class="checkbox">
-					<input type="checkbox" name="roles[]" value="<?php echo $role?>"><?php echo ucfirst($role)?>
+					<?php echo Form::checkbox('roles[]', $role, in_array($role, $selected_roles));?><?php echo ucfirst($role)?>
 					</label>
 					<?php }?>
 					
 					<div class="form-actions">
-						<button class="btn btn-primary"><?php echo Lang::get('admin.store-user')?></button>
+						<?php echo Form::button(Lang::get('admin.store-user'), array('class' => 'btn btn-primary'));?>
 						<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('admin.cancel')?></a>
 					</div>
 					

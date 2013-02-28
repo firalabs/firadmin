@@ -4,6 +4,9 @@ use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Lang;
 
 class Permissions {
 	
@@ -57,10 +60,23 @@ class Permissions {
 	}	
 	
 	/**
-	 * (non-PHPdoc)
-	 * @see Zend\Permissions\Acl\Acl::isAllowed()
+	 * Check is the user is allowed to the resource on the privilege
+	 * @param string $resource
+	 * @param string $privilege
+	 * @return bool|Redirect
 	 */
-	public function isAllowed($role = null, $resource = null, $privilege = null){
-		return $this->acl->isAllowed($role, $resource, $privilege);
+	public function isAllowed($resource = null, $privilege = null){
+		
+		//Get the current logged user roles
+		$roles = Auth::user()->getRoles();
+		
+		//Check each role if one of them was allowed
+		foreach ($roles as $role) {
+			if($this->acl->isAllowed($role, $resource, $privilege)){
+				return true;
+			}
+		}
+		
+		return Redirect::to('admin/login')->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 	}
 }
