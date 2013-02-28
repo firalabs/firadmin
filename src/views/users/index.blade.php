@@ -4,15 +4,15 @@
 		
 			<?php echo View::make('firadmin::partials.form-message')?>
 	
-			<h3 class="pull-left"><?php echo Lang::get('admin.users')?></h3>	
-			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-primary pull-right"><?php echo Lang::get('admin.add-users')?></a>
+			<h3 class="pull-left"><?php echo Lang::get('firadmin::admin.users')?></h3>	
+			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-primary pull-right"><?php echo Lang::get('firadmin::admin.add-user')?></a>
 				
 			<table class="table">
 				<thead>
 					<tr>
-						<th><?php echo Lang::get('admin.username')?></th>
-						<th><?php echo Lang::get('admin.email')?></th>
-						<th><?php echo Lang::get('admin.updated-at')?></th>
+						<th><?php echo Lang::get('firadmin::admin.username')?></th>
+						<th><?php echo Lang::get('firadmin::admin.email')?></th>
+						<th><?php echo Lang::get('firadmin::admin.updated-at')?></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -28,9 +28,9 @@
 									<i class="icon-cog"></i>
 								</a>
 								<ul class="dropdown-menu">          
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id);?>"><?php echo Lang::get('admin.show')?></a></li>
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id . '/edit');?>"><?php echo Lang::get('admin.edit')?></a></li>
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('admin.delete-confirm')?>')"><?php echo Lang::get('admin.delete')?></a></li>
+									<li><a href="<?php echo URL::to('admin/user/' . $user->id);?>"><?php echo Lang::get('firadmin::admin.show')?></a></li>
+									<li><a href="<?php echo URL::to('admin/user/' . $user->id . '/edit');?>"><?php echo Lang::get('firadmin::admin.edit')?></a></li>
+									<li><a href="<?php echo URL::to('admin/user/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')"><?php echo Lang::get('firadmin::admin.delete')?></a></li>
 								</ul>
 							</div>
 						</td>

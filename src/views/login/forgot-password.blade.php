@@ -37,13 +37,13 @@
 	<form class="form-signin" method="post">
 	
 		<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
-		<h2 class="form-signin-heading">Retrieve password</h2>
+		<h3 class="form-signin-heading"><?php echo Lang::get('firadmin::admin.retrieve-password')?></h3>
 		
 		<?php echo View::make('firadmin::partials.form-message')?>
 		
-		<input type="text" name="email" class="input-block-level" placeholder="Email address">
-		<a class="btn" href="<?php echo URL::to('admin/login')?>">Cancel</a>
-		<button class="btn btn-primary" type="submit">Send Reminder</button>
+		<input type="text" name="email" class="input-block-level" placeholder="<?php echo Lang::get('firadmin::admin.email')?>">
+		<a class="btn" href="<?php echo URL::to('admin/login')?>"><?php echo Lang::get('firadmin::admin.cancel')?></a>
+		<button class="btn btn-primary" type="submit"><?php echo Lang::get('firadmin::admin.send-reminder')?></button>
 	</form>
 	
 </div> <!-- /container -->

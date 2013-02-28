@@ -12,11 +12,11 @@ $('document').ready(function(){
 		
 			<?php echo View::make('firadmin::partials.form-message')?>
 			
-			<h3><?php echo Lang::get('admin.edit-user')?></h3>
+			<h3><?php echo Lang::get('firadmin::admin.edit-user')?></h3>
 				
 			<ul class="nav nav-tabs enabled-tabs">
-				<li class="active"><a href="#profile" data-toggle="tab"><?php echo Lang::get('admin.profil')?></a></li>
-				<li><a href="#change-password" data-toggle="tab"><?php echo Lang::get('admin.change-password')?></a></li>
+				<li class="active"><a href="#profile" data-toggle="tab"><?php echo Lang::get('firadmin::admin.profile')?></a></li>
+				<li><a href="#change-password" data-toggle="tab"><?php echo Lang::get('firadmin::admin.change-password')?></a></li>
 			</ul>
 			
 			<div class="tab-content">
@@ -28,13 +28,13 @@ $('document').ready(function(){
 						
 						<fieldset>
 							
-							<label><?php echo Lang::get('admin.username')?></label>
+							<label><?php echo Lang::get('firadmin::admin.username')?></label>
 							<?php echo Form::text('username', Input::old('username', isset($user)?$user->username:''));?>
 							
-							<label><?php echo Lang::get('admin.email')?></label>
+							<label><?php echo Lang::get('firadmin::admin.email')?></label>
 							<?php echo Form::text('email', Input::old('email', isset($user)?$user->email:''));?>
 					
-							<label><?php echo Lang::get('admin.roles')?></label>
+							<label><?php echo Lang::get('firadmin::admin.roles')?></label>
 							<?php foreach (Config::get('firadmin::roles') as $role => $permissions){?>
 							<label class="checkbox">
 							<?php echo Form::checkbox('roles[]', $role, in_array($role, $selected_roles));?><?php echo ucfirst($role)?>
@@ -42,8 +42,8 @@ $('document').ready(function(){
 							<?php }?>
 							
 							<div class="form-actions">
-								<?php echo Form::button(Lang::get('admin.update-user'), array('class' => 'btn btn-primary'));?>
-								<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('admin.cancel')?></a>
+								<?php echo Form::button(Lang::get('firadmin::admin.update-user'), array('class' => 'btn btn-primary'));?>
+								<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('firadmin::admin.cancel')?></a>
 							</div>
 							
 						</fieldset>
@@ -57,15 +57,15 @@ $('document').ready(function(){
 						
 						<fieldset>
 					
-							<label><?php echo Lang::get('admin.password')?></label>
+							<label><?php echo Lang::get('firadmin::admin.password')?></label>
 							<input type="password" name="password" value="">
 							
-							<label><?php echo Lang::get('admin.password_confirmation')?></label>
+							<label><?php echo Lang::get('firadmin::admin.password_confirmation')?></label>
 							<input type="password" name="password_confirmation" value="">
 							
 							<div class="form-actions">
-								<button class="btn btn-primary"><?php echo Lang::get('admin.change-password')?></button>
-								<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('admin.cancel')?></a>
+								<button class="btn btn-primary"><?php echo Lang::get('firadmin::admin.change-password')?></button>
+								<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('firadmin::admin.cancel')?></a>
 							</div>
 							
 						</fieldset>

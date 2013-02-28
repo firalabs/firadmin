@@ -42,13 +42,6 @@ return array(
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Init automaticly the ACL permission manager
-	|--------------------------------------------------------------------------
-	*/
-	'init_permissions' => true,
-	
-	/*
-	|--------------------------------------------------------------------------
 	| ACL available resources list
 	|--------------------------------------------------------------------------
 	*/
@@ -59,17 +52,21 @@ return array(
 	/*
 	|--------------------------------------------------------------------------
 	| ACL available roles list
+	|
+	| If you don't want to handle permissions in your application, use only the administrator roles.
+	| Also, you can add custom roles for your application.
+	|
 	|--------------------------------------------------------------------------
 	*/
 	'roles' => array(
 		/*
-		 * Grant all privileges to the administrator roles
+		 * Grant all privileges to the administrator roles.
 		 */
 		'administrator'  => true,
 	
 		/*
-		 * Granted basics CRUD privileges to the moderator role on the user resource
+		 * Granted basics CRUD privileges to the user administrator role on the user resource.
 		 */
-		'moderator' => array('user' => array('create', 'read', 'update', 'delete'))	
+		'user_administrator' => array('user' => array('create', 'read', 'update', 'delete'))	
 	)
 );

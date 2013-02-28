@@ -37,17 +37,17 @@
 	<form class="form-signin" method="post">
 	
 		<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
-		<h2 class="form-signin-heading">Please sign in</h2>
+		<h3 class="form-signin-heading">Please sign in</h3>
 		
 		<?php echo View::make('firadmin::partials.form-message')?>
 		
 		<input type="text" name="username" class="input-block-level" placeholder="Email address">
 		<input type="password" name="password" class="input-block-level" placeholder="Password">
-		<div class="pull-right"><a href="<?php echo URL::to('admin/login/forgot-password')?>">Forgot password ?</a></div>
+		<div class="pull-right"><a href="<?php echo URL::to('admin/login/forgot-password')?>"><?php echo Lang::get('firadmin::admin.forgot-password')?></a></div>
 		<label class="checkbox">
-			<input type="checkbox" name="remember-me" value="1"> Remember me
+			<input type="checkbox" name="remember-me" value="1"><?php echo Lang::get('firadmin::admin.remember-me')?>
 		</label>
-		<button class="btn btn-primary" type="submit">Sign in</button>
+		<button class="btn btn-primary" type="submit"><?php echo Lang::get('firadmin::admin.sign-in')?></button>
 	</form>
 	
 </div> <!-- /container -->

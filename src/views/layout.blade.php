@@ -46,8 +46,8 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon icon-user"></span> <?php echo !empty(Auth::user()->username)?Auth::user()->username:''?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<?php echo URL::to('admin/user/' .  (!empty(Auth::user()->id)?Auth::user()->id:''))?>">Profile</a></li>
-								<li><a href="<?php echo URL::to('admin/logout');?>">Logout</a></li>
+								<li><a href="<?php echo URL::to('admin/user/' .  (!empty(Auth::user()->id)?Auth::user()->id:''))?>"><?php echo Lang::get('firadmin::admin.profile')?></a></li>
+								<li><a href="<?php echo URL::to('admin/logout');?>"><?php echo Lang::get('firadmin::admin.logout')?></a></li>
                				</ul>
               			</li>
 					</ul>
@@ -64,7 +64,7 @@
 	</div>
 	<?php endif;?>
   
-  	{{{$content}}}
+  	{{$content}}
   	
 	<!-- Le javascript
 	================================================== -->

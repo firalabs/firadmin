@@ -4,7 +4,43 @@ return array(
 
 	'messages' => array(
 		'attempt-fail'   => 'Attempt failed',
-		'logout-success' => 'Logout success'
-	)
-
+		'logout-success' => 'Logout success',
+		'insufisant-permission' => 'Insufisant permission'
+	),
+	'store-success' => 'Store sucess',
+	'update-success' => 'Update success',
+	'update-password-success' => 'Update password success',
+	'destroy-fail' => 'Destroy fail',
+	'destroy-success' => 'Destroy success',
+	'username' => 'Username',
+	'email' => 'Email',
+	'new-password' => 'New Password',
+	'new-password_confirmation' => 'Confirm new password',
+	'password' => 'Password',
+	'password_confirmation' => 'Confirm password',
+	'roles' => 'Roles',
+	'store-user' => 'Store user',
+	'edit-user' => 'Edit user',
+	'profile' => 'Profile',
+	'change-password' => 'Change password',
+	'update-user' => 'Update user',
+	'updated-at' => 'Updated at',
+	'created-at' => 'Created at',
+	'add-user' => 'Add user',
+	'users' => 'Users',
+	'cancel' => 'Cancel',
+	'show' => 'Show',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'return' => 'Return',
+	'reset' => 'Reset',
+	'reset-your-password' => 'Reset your password',
+	'logout' => 'Logout',
+	'logout' => 'Logout',
+	'retrieve-password' => 'Retrieve password',
+	'forgot-password' => 'Forgot password ?',
+	'remember-me' => 'Remember me',
+	'sign-in' => 'Sign in',
+	'send-reminder' => 'Send reminder',
+	'delete-confirm' => 'You want to permanatly delete this data entry?'
 );

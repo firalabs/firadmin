@@ -39,15 +39,20 @@
 		<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
 		<input type="hidden" name="token" value="{{ $token }}">
 		
-		<h2 class="form-signin-heading">Reset your password</h2>
+		<h3 class="form-signin-heading"><?php echo Lang::get('firadmin::admin.reset-your-password')?></h3>
 		
 		<?php echo View::make('firadmin::partials.form-message')?>
 		
-		<input type="text" name="email" class="input-block-level" placeholder="Email address">		
-		<input type="password" name="password" class="input-block-level">		
+		<label><?php echo Lang::get('firadmin::admin.email')?></label>
+		<input type="text" name="email" class="input-block-level">		
+		
+		<label><?php echo Lang::get('firadmin::admin.new-password')?></label>
+		<input type="password" name="password" class="input-block-level">
+		
+		<label><?php echo Lang::get('firadmin::admin.new-password_confirmation')?></label>		
 		<input type="password" name="password_confirmation" class="input-block-level">
 		
-		<button class="btn btn-large btn-primary" type="submit">Reset</button>
+		<button class="btn btn-primary" type="submit"><?php echo Lang::get('firadmin::admin.reset')?></button>
 	</form>
 	
 </div> <!-- /container -->
