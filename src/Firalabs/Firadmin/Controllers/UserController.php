@@ -62,7 +62,7 @@ class UserController extends BaseController {
 		$paginate = Input::get('take')?(int) Input::get('take'):Config::get('firadmin::paginate');
 		
 		//Check if the request type is ajax
-		if(Input::get('request') == 'ajax'){
+		if(AjaxSupport::isAjaxRequest()){
 			
 			//Define the number of skipped row
 			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
@@ -133,8 +133,8 @@ class UserController extends BaseController {
 			}
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::success(Lang::get('firadmin::admin.store-success'));
+			if(AjaxSupport::success(Lang::get('firadmin::admin.store-success')) === true){
+				return AjaxSupport::getResponse();
 			}
 	
 			//Redirect
@@ -146,8 +146,8 @@ class UserController extends BaseController {
 			Input::flash();
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error($this->user->errors()->all(':message'));
+			if(AjaxSupport::error($this->user->errors()->all(':message')) === true){
+				return AjaxSupport::getResponse();
 			}
 		
 			//Redirect
@@ -175,8 +175,8 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
+			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
+				return AjaxSupport::getResponse();
 			}
 				
 			//Error reason
@@ -185,7 +185,7 @@ class UserController extends BaseController {
 		} else {
 		
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
+			if(AjaxSupport::isAjaxRequest()){
 				return Response::json($user->toArray());
 			}
 					
@@ -216,8 +216,8 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
+			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
+				return AjaxSupport::getResponse();
 			}
 				
 			//Error reason
@@ -262,8 +262,8 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
+			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
+				return AjaxSupport::getResponse();
 			}
 				
 			//Error reason
@@ -318,11 +318,11 @@ class UserController extends BaseController {
 						//Insert role
 						$user->roles()->save($role);
 					}
-				}		
-			
+				}	
+
 				//Check if the request type is ajax
-				if(Input::get('request') == 'ajax'){
-					return AjaxSupport::success( Lang::get('firadmin::admin.update-success') );
+				if(AjaxSupport::success( Lang::get('firadmin::admin.update-success')) === true){
+					return AjaxSupport::getResponse();
 				}
 		
 				//Redirect
@@ -331,11 +331,11 @@ class UserController extends BaseController {
 			} else {
 	
 				//Flash input
-				Input::flash();		
-			
+				Input::flash();	
+
 				//Check if the request type is ajax
-				if(Input::get('request') == 'ajax'){					
-					return AjaxSupport::error($user->errors()->all(':message'));
+				if(AjaxSupport::error($user->errors()->all(':message')) === true){
+					return AjaxSupport::getResponse();
 				}
 			
 				//Redirect
@@ -364,8 +364,8 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
+			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
+				return AjaxSupport::getResponse();
 			}
 				
 			//Error reason
@@ -385,10 +385,10 @@ class UserController extends BaseController {
 			
 			//Save
 			if($user->save($rules)){
-			
+				
 				//Check if the request type is ajax
-				if(Input::get('request') == 'ajax'){
-					return AjaxSupport::success( Lang::get('firadmin::admin.update-password-success') );
+				if(AjaxSupport::success( Lang::get('firadmin::admin.update-password-success') ) === true){
+					return AjaxSupport::getResponse();
 				}
 		
 				//Redirect
@@ -400,8 +400,8 @@ class UserController extends BaseController {
 				Input::flash();
 				
 				//Check if the request type is ajax
-				if(Input::get('request') == 'ajax'){
-					return AjaxSupport::error( $user->errors()->all(':message'));
+				if( AjaxSupport::error( $user->errors()->all(':message')) === true){
+					return AjaxSupport::getResponse();
 				}
 				
 				//Set reason why error
@@ -428,10 +428,10 @@ class UserController extends BaseController {
 		
 		//If the user doesn't exist
 		if(!$user){
-		
+				
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::error( Lang::get('firadmin::admin.destroy-fail'));
+			if( AjaxSupport::error( Lang::get('firadmin::admin.destroy-fail')) === true){
+				return AjaxSupport::getResponse();
 			}
 				
 			//Error reason
@@ -443,11 +443,11 @@ class UserController extends BaseController {
 			$user->roles()->delete();
 			
 			//Delete the user
-			$user->delete($id);		
-		
+			$user->delete($id);	
+
 			//Check if the request type is ajax
-			if(Input::get('request') == 'ajax'){
-				return AjaxSupport::success( Lang::get('firadmin::admin.destroy-success') );
+			if( AjaxSupport::success( Lang::get('firadmin::admin.destroy-success') ) === true){
+				return AjaxSupport::getResponse();
 			}
 			
 			//Success message
