@@ -39,6 +39,8 @@
 				</tbody>
 			</table>
 			
+			<?php echo $users->links(); ?>
+			
 		</div>
 	</div>
 </div>

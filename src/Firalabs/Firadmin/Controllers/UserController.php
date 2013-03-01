@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Controller used for users managment
@@ -55,8 +56,22 @@ class UserController extends BaseController {
 			return app()->permissions->isAllowed('user', 'updated');
 		}
 		
+		//Define the number of item we want to display per page
+		$paginate = Input::get('take')?(int) Input::get('take'):Config::get('firadmin::paginate');
+		
+		//Check if we want to display the result in json
+		if(Input::get('output') == 'json'){
+			
+			//Define the number of skipped row
+			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
+			
+			//Return users list response has a json
+			return Response::json($this->user->with('roles')->skip($skip)->take($paginate)->get()->toArray());
+		}
+		
+		//Define the layout content
 		$this->layout->content = View::make('firadmin::users.index', array(
-			'users' => $this->user->with('roles')->get()
+			'users' => $this->user->with('roles')->paginate($paginate)->appends('take', $paginate)
 		));
 	}
 
@@ -82,6 +97,7 @@ class UserController extends BaseController {
 			$selected_roles = array();
 		}
 		
+		//Define the layout content
 		$this->layout->content = View::make('firadmin::users.create', array('selected_roles' => $selected_roles));
 	}
 
@@ -113,6 +129,13 @@ class UserController extends BaseController {
 					$this->user->roles()->save($role);
 				}
 			}
+			
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'success' => Lang::get('firadmin::admin.store-success')
+				));
+			}
 	
 			//Redirect
 			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.store-success'));
@@ -121,6 +144,14 @@ class UserController extends BaseController {
 
 			//Flash input
 			Input::flash();
+			
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => $this->user->errors()->all(':message')
+				));
+			}
 		
 			//Redirect
 			return Redirect::to('admin/user/create')->with('reason', $this->user->errors()->all(':message<br>'))->with('error', 1);
@@ -139,10 +170,37 @@ class UserController extends BaseController {
 		if(app()->permissions->isAllowed('user', 'read') !== true){
 			return app()->permissions->isAllowed('user', 'read');
 		}
+		
+		//Get the user in database
+		$user = $this->user->find($id);
+		
+		//If the user not exist
+		if(!$user){
+			
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
+				));
+			}
 				
-		$this->layout->content = View::make('firadmin::users.show', array(
-			'user' => $this->user->find($id)
-		));
+			//Error reason
+			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			
+		} else {
+		
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json($user->toArray());
+			}
+					
+			//Define the layout content
+			$this->layout->content = View::make('firadmin::users.show', array(
+				'user' => $user
+			));
+			
+		}
 	}
 
 	/**
@@ -160,20 +218,38 @@ class UserController extends BaseController {
 		//Get the user data
 		$user = $this->user->find($id);
 		
-		//Check if we have selected roles
-		if(Input::old('roles')){
+		//If the user not exist
+		if(!$user){
 			
-			$selected_roles = Input::old('roles');
-                        
-		 //Else set to default
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
+				));
+			}
+				
+			//Error reason
+			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			
 		} else {
-			$selected_roles = $user->getRoles();
-		}
 		
-		$this->layout->content = View::make('firadmin::users.edit', array(
-			'user' => $user,
-			'selected_roles' => $selected_roles
-		));
+			//Check if we have selected roles
+			if(Input::old('roles')){
+				
+				$selected_roles = Input::old('roles');
+	                        
+			 //Else set to default
+			} else {
+				$selected_roles = $user->getRoles();
+			}
+			
+			$this->layout->content = View::make('firadmin::users.edit', array(
+				'user' => $user,
+				'selected_roles' => $selected_roles
+			));
+			
+		}
 	}
 
 	/**
@@ -190,67 +266,102 @@ class UserController extends BaseController {
 			
 		//Get the user in database
 		$user = $this->user->find($id);
-			
-		//Define validation rules
-		$rules = array(
-		    'username' => 'required|min:5|unique:users',
-		    'email' => 'required|email|unique:users',
-	    );
 		
-		//Check if the username have changed
-		if($user->username == Input::get ('username')){
-			
-			//The email adress not changed, so replace the email validation rules
-			$rules['username'] = 'required|min:5';
-			
-		}
+		//Get the user data
+		$user = $this->user->find($id);
 		
-		//Check if the user email have changed
-		if($user->email == Input::get ('email')){
+		//If the user not exist
+		if(!$user){
 			
-			//The email adress not changed, so replace the email validation rules
-			$rules['email'] = 'required|email';
-			
-		}
-			
-		//Update user
-		$user->username = Input::get('username');
-		$user->email = Input::get('email');
-		
-		//Just before save, we don't want to auto hash the existing password, replace this later if possible
-		$user->autoHashPasswordAttributes = false;		
-			
-		//Save
-		if($user->save($rules)){			
-			
-			//Delete the user roles
-			$user->roles()->delete();		
-			
-			//If we have roles
-			if(Input::get('roles')){
-				
-				//foreach role
-				foreach (Input::get('roles') as $role) {
-				
-					//Create role
-					$role = new UserRolesModel(array('role' => $role));				
-			
-					//Insert role
-					$user->roles()->save($role);
-				}
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
+				));
 			}
-	
-			//Redirect
-			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-success'));
+				
+			//Error reason
+			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
-
-			//Flash input
-			Input::flash();
-		
-			//Redirect
-			return Redirect::to('admin/user/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
 			
+			//Define validation rules
+			$rules = array(
+			    'username' => 'required|min:5|unique:users',
+			    'email' => 'required|email|unique:users',
+		    );
+			
+			//Check if the username have changed
+			if($user->username == Input::get ('username')){
+				
+				//The email adress not changed, so replace the email validation rules
+				$rules['username'] = 'required|min:5';
+				
+			}
+			
+			//Check if the user email have changed
+			if($user->email == Input::get ('email')){
+				
+				//The email adress not changed, so replace the email validation rules
+				$rules['email'] = 'required|email';
+				
+			}
+				
+			//Update user
+			$user->username = Input::get('username');
+			$user->email = Input::get('email');
+			
+			//Just before save, we don't want to auto hash the existing password, replace this later if possible
+			$user->autoHashPasswordAttributes = false;		
+				
+			//Save
+			if($user->save($rules)){			
+				
+				//Delete the user roles
+				$user->roles()->delete();		
+				
+				//If we have roles
+				if(Input::get('roles')){
+					
+					//foreach role
+					foreach (Input::get('roles') as $role) {
+					
+						//Create role
+						$role = new UserRolesModel(array('role' => $role));				
+				
+						//Insert role
+						$user->roles()->save($role);
+					}
+				}		
+			
+				//Check if we want to display the result in json
+				if(Input::get('output') == 'json'){
+					return Response::json(array(
+						'success' => Lang::get('firadmin::admin.update-success')
+					));
+				}
+		
+				//Redirect
+				return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-success'));
+				
+			} else {
+	
+				//Flash input
+				Input::flash();		
+			
+				//Check if we want to display the result in json
+				if(Input::get('output') == 'json'){
+					return Response::json(array(
+						'error' => 1,
+						'reason' => $user->errors()->all(':message')
+					));
+				}
+			
+				//Redirect
+				return Redirect::to('admin/user/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				
+			}
 		}
 	}
 
@@ -313,6 +424,14 @@ class UserController extends BaseController {
 		
 		//If the user doesn't exist
 		if(!$user){
+		
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => Lang::get('firadmin::admin.destroy-fail')
+				));
+			}
 				
 			//Error reason
 			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
@@ -323,7 +442,14 @@ class UserController extends BaseController {
 			$user->roles()->delete();
 			
 			//Delete the user
-			$user->delete($id);
+			$user->delete($id);		
+		
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'success' => Lang::get('firadmin::admin.destroy-success')
+				));
+			}
 			
 			//Success message
 			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.destroy-success'));
