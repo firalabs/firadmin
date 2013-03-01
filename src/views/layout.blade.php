@@ -23,7 +23,9 @@
     </style>
 
 	<!-- Le styles -->
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<?php foreach ($assets['css'] as $css){?>
+	<link href="<?php echo $css?>" rel="stylesheet">
+	<?php }?>
 	
 	
 </head>
@@ -69,7 +71,9 @@
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<?php foreach ($assets['js'] as $js){?>
+	<script src="<?php echo $js?>"></script>
+	<?php }?>
   
 </body>
 </html>

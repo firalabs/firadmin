@@ -49,6 +49,21 @@ return array(
 	
 	/*
 	|--------------------------------------------------------------------------
+	| The number of items you wish to display per page. Use by the pagination
+	|--------------------------------------------------------------------------
+	*/
+	'assets' => array(
+		'css' => array(
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
+		),
+		'js' => array(
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js',
+			URL::to('assets/js/application.js')
+		)
+	),
+	
+	/*
+	|--------------------------------------------------------------------------
 	| ACL available resources list
 	|--------------------------------------------------------------------------
 	*/

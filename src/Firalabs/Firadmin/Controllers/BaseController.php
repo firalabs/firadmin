@@ -32,6 +32,9 @@ class BaseController extends Controller {
 		//Default we don't have active menu 
 		$this->layout->active_menu = '';	
 		
+		//Set javascript assets
+		$this->layout->assets = Config::get('firadmin::assets');	
+		
 		//Set application title
 		$this->layout->title = Config::get('firadmin::title');
 		

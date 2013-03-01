@@ -9,9 +9,6 @@
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
-		
-			<?php echo View::make('firadmin::partials.form-message')?>			
-			<h3><?php echo Lang::get('firadmin::admin.add-user')?></h3>
 							
 			<form method="post" action="<?php echo URL::to('admin/user');?>">
 			<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
