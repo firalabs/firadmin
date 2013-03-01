@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
+use Firalabs\Firadmin\Facades\AjaxSupport;
+use Firalabs\Firadmin\Facades\Permissions;
 
 /**
  * Controller used for users managment
@@ -52,15 +54,15 @@ class UserController extends BaseController {
 	public function index()
 	{		
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'update') !== true){
-			return app()->permissions->isAllowed('user', 'updated');
+		if(Permissions::isAllowed('user', 'update') !== true){
+			return Permissions::isAllowed('user', 'updated');
 		}
 		
 		//Define the number of item we want to display per page
 		$paginate = Input::get('take')?(int) Input::get('take'):Config::get('firadmin::paginate');
 		
-		//Check if we want to display the result in json
-		if(Input::get('output') == 'json'){
+		//Check if the request type is ajax
+		if(Input::get('request') == 'ajax'){
 			
 			//Define the number of skipped row
 			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
@@ -83,8 +85,8 @@ class UserController extends BaseController {
 	public function create()
 	{		
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'create') !== true){
-			return app()->permissions->isAllowed('user', 'updated');
+		if(Permissions::isAllowed('user', 'create') !== true){
+			return Permissions::isAllowed('user', 'updated');
 		}
 		
 		//Check if we have selected roles
@@ -109,8 +111,8 @@ class UserController extends BaseController {
 	public function store()
 	{			
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'create') !== true){
-			return app()->permissions->isAllowed('user', 'create');
+		if(Permissions::isAllowed('user', 'create') !== true){
+			return Permissions::isAllowed('user', 'create');
 		}
 				
 		//Save
@@ -130,11 +132,9 @@ class UserController extends BaseController {
 				}
 			}
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'success' => Lang::get('firadmin::admin.store-success')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::success(Lang::get('firadmin::admin.store-success'));
 			}
 	
 			//Redirect
@@ -145,12 +145,9 @@ class UserController extends BaseController {
 			//Flash input
 			Input::flash();
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => $this->user->errors()->all(':message')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error($this->user->errors()->all(':message'));
 			}
 		
 			//Redirect
@@ -167,8 +164,8 @@ class UserController extends BaseController {
 	public function show($id)
 	{			
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'read') !== true){
-			return app()->permissions->isAllowed('user', 'read');
+		if(Permissions::isAllowed('user', 'read') !== true){
+			return Permissions::isAllowed('user', 'read');
 		}
 		
 		//Get the user in database
@@ -177,12 +174,9 @@ class UserController extends BaseController {
 		//If the user not exist
 		if(!$user){
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
 			}
 				
 			//Error reason
@@ -190,8 +184,8 @@ class UserController extends BaseController {
 			
 		} else {
 		
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
 				return Response::json($user->toArray());
 			}
 					
@@ -211,8 +205,8 @@ class UserController extends BaseController {
 	public function edit($id)
 	{
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'update') !== true){
-			return app()->permissions->isAllowed('user', 'update');
+		if(Permissions::isAllowed('user', 'update') !== true){
+			return Permissions::isAllowed('user', 'update');
 		}	
 		
 		//Get the user data
@@ -221,12 +215,9 @@ class UserController extends BaseController {
 		//If the user not exist
 		if(!$user){
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
 			}
 				
 			//Error reason
@@ -260,8 +251,8 @@ class UserController extends BaseController {
 	public function update($id)
 	{
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'update') !== true){
-			return app()->permissions->isAllowed('user', 'update');
+		if(Permissions::isAllowed('user', 'update') !== true){
+			return Permissions::isAllowed('user', 'update');
 		}
 			
 		//Get the user in database
@@ -270,12 +261,9 @@ class UserController extends BaseController {
 		//If the user not exist
 		if(!$user){
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
 			}
 				
 			//Error reason
@@ -332,11 +320,9 @@ class UserController extends BaseController {
 					}
 				}		
 			
-				//Check if we want to display the result in json
-				if(Input::get('output') == 'json'){
-					return Response::json(array(
-						'success' => Lang::get('firadmin::admin.update-success')
-					));
+				//Check if the request type is ajax
+				if(Input::get('request') == 'ajax'){
+					return AjaxSupport::success( Lang::get('firadmin::admin.update-success') );
 				}
 		
 				//Redirect
@@ -347,12 +333,9 @@ class UserController extends BaseController {
 				//Flash input
 				Input::flash();		
 			
-				//Check if we want to display the result in json
-				if(Input::get('output') == 'json'){
-					return Response::json(array(
-						'error' => 1,
-						'reason' => $user->errors()->all(':message')
-					));
+				//Check if the request type is ajax
+				if(Input::get('request') == 'ajax'){					
+					return AjaxSupport::error($user->errors()->all(':message'));
 				}
 			
 				//Redirect
@@ -370,8 +353,8 @@ class UserController extends BaseController {
 	public function changePassword($id)
 	{
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'update') !== true){
-			return app()->permissions->isAllowed('user', 'update');
+		if(Permissions::isAllowed('user', 'update') !== true){
+			return Permissions::isAllowed('user', 'update');
 		}
 			
 		//Get the user in database
@@ -380,12 +363,9 @@ class UserController extends BaseController {
 		//If the user not exist
 		if(!$user){
 			
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found'));
 			}
 				
 			//Error reason
@@ -406,11 +386,9 @@ class UserController extends BaseController {
 			//Save
 			if($user->save($rules)){
 			
-				//Check if we want to display the result in json
-				if(Input::get('output') == 'json'){
-					return Response::json(array(
-						'success' => Lang::get('firadmin::admin.update-password-success')
-					));
+				//Check if the request type is ajax
+				if(Input::get('request') == 'ajax'){
+					return AjaxSupport::success( Lang::get('firadmin::admin.update-password-success') );
 				}
 		
 				//Redirect
@@ -421,12 +399,9 @@ class UserController extends BaseController {
 				//Flash input
 				Input::flash();
 				
-				//Check if we want to display the result in json
-				if(Input::get('output') == 'json'){
-					return Response::json(array(
-						'error' => 1,
-						'reason' => $user->errors()->all(':message')
-					));
+				//Check if the request type is ajax
+				if(Input::get('request') == 'ajax'){
+					return AjaxSupport::error( $user->errors()->all(':message'));
 				}
 				
 				//Set reason why error
@@ -444,8 +419,8 @@ class UserController extends BaseController {
 	public function destroy($id)
 	{
 		//Check permission
-		if(app()->permissions->isAllowed('user', 'delete') !== true){
-			return app()->permissions->isAllowed('user', 'delete');
+		if(Permissions::isAllowed('user', 'delete') !== true){
+			return Permissions::isAllowed('user', 'delete');
 		}
 		
 		//Get the user in database
@@ -454,12 +429,9 @@ class UserController extends BaseController {
 		//If the user doesn't exist
 		if(!$user){
 		
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'error' => 1,
-					'reason' => Lang::get('firadmin::admin.destroy-fail')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::error( Lang::get('firadmin::admin.destroy-fail'));
 			}
 				
 			//Error reason
@@ -473,11 +445,9 @@ class UserController extends BaseController {
 			//Delete the user
 			$user->delete($id);		
 		
-			//Check if we want to display the result in json
-			if(Input::get('output') == 'json'){
-				return Response::json(array(
-					'success' => Lang::get('firadmin::admin.destroy-success')
-				));
+			//Check if the request type is ajax
+			if(Input::get('request') == 'ajax'){
+				return AjaxSupport::success( Lang::get('firadmin::admin.destroy-success') );
 			}
 			
 			//Success message

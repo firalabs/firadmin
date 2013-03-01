@@ -2,6 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
+use Firalabs\Firadmin\AjaxSupport;
+use Firalabs\Firadmin\Permissions;
 
 /**
  * Package service provider
@@ -42,6 +44,9 @@ class FiradminServiceProvider extends ServiceProvider {
 			Config::get('firadmin::roles'),
 			Config::get('firadmin::resources')
 		);
+		
+		//Create the Ajax support objcet
+		$this->app['ajaxsupport'] = new AjaxSupport();
         
 		//If we want to use the default routing provided by the package
 		if(Config::get('firadmin::default_routing') === true){
