@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Facade for permissions
+ * 
+ * @author maxime.beaudoin
+ */
 class Permissions extends Facade
 {
     /**

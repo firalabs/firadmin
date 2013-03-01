@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Lang;
 
+/**
+ * This is the ACL component use to handle permissions on the laravel application.
+ * We use zendframework/zend-permissions-acl packages in the back.
+ * 
+ * @author maxime.beaudoin
+ */
 class Permissions {
 	
 	/**

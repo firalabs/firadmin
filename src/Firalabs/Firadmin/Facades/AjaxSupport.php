@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Facade for Ajax support
+ * 
+ * @author maxime.beaudoin
+ */
 class AjaxSupport extends Facade
 {
     /**
