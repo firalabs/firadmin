@@ -7,12 +7,16 @@ $('document').ready(function(){
 </script>
 
 <div class="container">
-	<div class="row-fluid">
+	<div class="row-fluid">	
 		<div class="span12">
 		
-			<?php echo View::make('firadmin::partials.form-message')?>
-			
+			<?php echo View::make('firadmin::partials.form-message')?>			
 			<h3><?php echo Lang::get('firadmin::admin.edit-user')?></h3>
+					
+		</div>	
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
 				
 			<ul class="nav nav-tabs enabled-tabs">
 				<li class="active"><a href="#profile" data-toggle="tab"><?php echo Lang::get('firadmin::admin.profile')?></a></li>

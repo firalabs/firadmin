@@ -1,12 +1,20 @@
 <div class="container">
-	<div class="row-fluid">
+
+	<div class="row-fluid">	
 		<div class="span12">
 		
-			<?php echo View::make('firadmin::partials.form-message')?>
-	
+			<?php echo View::make('firadmin::partials.form-message')?>	
 			<h3 class="pull-left"><?php echo Lang::get('firadmin::admin.users')?></h3>	
-			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-primary pull-right"><?php echo Lang::get('firadmin::admin.add-user')?></a>
-				
+			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-primary pull-right">
+				<?php echo Lang::get('firadmin::admin.add-user')?>
+			</a>
+					
+		</div>	
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span12">		
+					
 			<table class="table">
 				<thead>
 					<tr>
@@ -39,8 +47,7 @@
 				</tbody>
 			</table>
 			
-			<?php echo $users->links(); ?>
-			
+			<?php echo $users->links(); ?>			
 		</div>
 	</div>
 </div>
