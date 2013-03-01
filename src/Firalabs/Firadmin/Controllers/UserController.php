@@ -267,9 +267,6 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->user->find($id);
 		
-		//Get the user data
-		$user = $this->user->find($id);
-		
 		//If the user not exist
 		if(!$user){
 			
@@ -380,30 +377,62 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->user->find($id);
 		
-		//Define validation rules
-		$rules = array(
-	    	'password' => 'required|min:5',
-	    	'password_confirmation' => 'required|min:5|same:password',
-	    );
+		//If the user not exist
+		if(!$user){
 			
-		//Update user	
-		$user->password = Input::get('password');
-		$user->password_confirmation = Input::get('password_confirmation');
-		
-		//Save
-		if($user->save($rules)){
-	
-			//Redirect
-			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-password-success'));
+			//Check if we want to display the result in json
+			if(Input::get('output') == 'json'){
+				return Response::json(array(
+					'error' => 1,
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found')
+				));
+			}
+				
+			//Error reason
+			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
-
-			//Flash input
-			Input::flash();
+		
+			//Define validation rules
+			$rules = array(
+		    	'password' => 'required|min:5',
+		    	'password_confirmation' => 'required|min:5|same:password',
+		    );
+				
+			//Update user	
+			$user->password = Input::get('password');
+			$user->password_confirmation = Input::get('password_confirmation');
 			
-			//Set reason why error
-			return Redirect::to('admin/user/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+			//Save
+			if($user->save($rules)){
 			
+				//Check if we want to display the result in json
+				if(Input::get('output') == 'json'){
+					return Response::json(array(
+						'success' => Lang::get('firadmin::admin.update-password-success')
+					));
+				}
+		
+				//Redirect
+				return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-password-success'));
+				
+			} else {
+	
+				//Flash input
+				Input::flash();
+				
+				//Check if we want to display the result in json
+				if(Input::get('output') == 'json'){
+					return Response::json(array(
+						'error' => 1,
+						'reason' => $user->errors()->all(':message')
+					));
+				}
+				
+				//Set reason why error
+				return Redirect::to('admin/user/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				
+			}
 		}
 	}
 
