@@ -5,8 +5,8 @@
 		
 			<?php echo View::make('firadmin::partials.form-message')?>	
 			<h3 class="pull-left"><?php echo Lang::get('firadmin::admin.users')?></h3>	
-			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-primary pull-right">
-				<?php echo Lang::get('firadmin::admin.add-user')?>
+			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-success pull-right" style="margin-top:15px">
+				<span class="icon-white icon-plus"></span> <?php echo Lang::get('firadmin::admin.add-user')?>
 			</a>
 					
 		</div>	
