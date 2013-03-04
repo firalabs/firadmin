@@ -138,7 +138,7 @@ class UserController extends BaseController {
 			}
 	
 			//Redirect
-			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.store-success'));
+			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.store-success'));
 			
 		} else {	
 
@@ -151,7 +151,7 @@ class UserController extends BaseController {
 			}
 		
 			//Redirect
-			return Redirect::to('admin/user/create')->with('reason', $this->user->errors()->all(':message<br>'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user') . '/create')->with('reason', $this->user->errors()->all(':message<br>'))->with('error', 1);
 			
 		}
 	}
@@ -159,6 +159,7 @@ class UserController extends BaseController {
 	/**
 	 * Display the specified resource.
 	 *
+	 * @param int $id
 	 * @return Response
 	 */
 	public function show($id)
@@ -180,7 +181,7 @@ class UserController extends BaseController {
 			}
 				
 			//Error reason
-			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
 		
@@ -200,6 +201,7 @@ class UserController extends BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
+	 * @param int $id
 	 * @return Response
 	 */
 	public function edit($id)
@@ -221,7 +223,7 @@ class UserController extends BaseController {
 			}
 				
 			//Error reason
-			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
 		
@@ -245,7 +247,8 @@ class UserController extends BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 *
+	 * 
+	 * @param int $id
 	 * @return Response
 	 */
 	public function update($id)
@@ -267,7 +270,7 @@ class UserController extends BaseController {
 			}
 				
 			//Error reason
-			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
 			
@@ -326,7 +329,7 @@ class UserController extends BaseController {
 				}
 		
 				//Redirect
-				return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-success'));
+				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-success'));
 				
 			} else {
 	
@@ -339,7 +342,7 @@ class UserController extends BaseController {
 				}
 			
 				//Redirect
-				return Redirect::to('admin/user/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
 				
 			}
 		}
@@ -348,6 +351,7 @@ class UserController extends BaseController {
 	/**
 	 * Change the user password
 	 *
+	 * @param int $id
 	 * @return Response
 	 */
 	public function changePassword($id)
@@ -369,7 +373,7 @@ class UserController extends BaseController {
 			}
 				
 			//Error reason
-			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
 		} else {
 		
@@ -392,7 +396,7 @@ class UserController extends BaseController {
 				}
 		
 				//Redirect
-				return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.update-password-success'));
+				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-password-success'));
 				
 			} else {
 	
@@ -405,7 +409,7 @@ class UserController extends BaseController {
 				}
 				
 				//Set reason why error
-				return Redirect::to('admin/user/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
 				
 			}
 		}
@@ -414,6 +418,7 @@ class UserController extends BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
+	 * @param int $id
 	 * @return Response
 	 */
 	public function destroy($id)
@@ -435,7 +440,7 @@ class UserController extends BaseController {
 			}
 				
 			//Error reason
-			return Redirect::to('admin/user')->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
 			
 		} else {		
 			
@@ -451,7 +456,7 @@ class UserController extends BaseController {
 			}
 			
 			//Success message
-			return Redirect::to('admin/user')->with('success', Lang::get('firadmin::admin.destroy-success'));
+			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.destroy-success'));
 		}
 	}
 

@@ -25,6 +25,13 @@ return array(
 	|--------------------------------------------------------------------------
 	*/
 	'project_name' => 'Firadmin',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Project url
+	|--------------------------------------------------------------------------
+	*/
+	'project_url' => '#',
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -39,6 +46,18 @@ return array(
 	|--------------------------------------------------------------------------
 	*/
 	'default_routing' => true,
+	
+	/*
+	|--------------------------------------------------------------------------
+	| When you use custom route, you MUST change redirect routing in the controller
+	| to match your custom route.
+	|--------------------------------------------------------------------------
+	*/
+	'route' => array(
+		'login' => 'admin/login',
+		'user' => 'admin/user',
+		'logout' => 'admin/logout'
+	),
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -57,8 +76,7 @@ return array(
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css'
 		),
 		'js' => array(
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js',
-			URL::to('assets/js/application.js')
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js'
 		)
 	),
 	

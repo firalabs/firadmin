@@ -83,6 +83,6 @@ class Permissions {
 			}
 		}
 		
-		return Redirect::to('admin/login')->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+		return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 	}
 }
