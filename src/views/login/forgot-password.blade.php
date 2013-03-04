@@ -42,7 +42,7 @@
 		<?php echo View::make('firadmin::partials.form-message')?>
 		
 		<input type="text" name="email" class="input-block-level" placeholder="<?php echo Lang::get('firadmin::admin.email')?>">
-		<a class="btn" href="<?php echo URL::to('admin/login')?>"><?php echo Lang::get('firadmin::admin.cancel')?></a>
+		<a class="btn" href="<?php echo URL::to(Config::get('firadmin::route.login'))?>"><?php echo Lang::get('firadmin::admin.cancel')?></a>
 		<button class="btn btn-primary" type="submit"><?php echo Lang::get('firadmin::admin.send-reminder')?></button>
 	</form>
 	

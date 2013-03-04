@@ -38,8 +38,8 @@
 			</table>
 					
 			<div class="form-actions">
-				<a href="<?php echo URL::to('admin/user/' . $user->id . '/edit');?>" class="btn btn-primary"><?php echo Lang::get('firadmin::admin.edit')?></a>
-				<a href="<?php echo URL::to('admin/user/');?>" class="btn"><?php echo Lang::get('firadmin::admin.return')?></a>
+				<a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id . '/edit');?>" class="btn btn-primary"><?php echo Lang::get('firadmin::admin.edit')?></a>
+				<a href="<?php echo URL::to(Config::get('firadmin::route.user'));?>" class="btn"><?php echo Lang::get('firadmin::admin.return')?></a>
 			</div>
 			
 		</div>

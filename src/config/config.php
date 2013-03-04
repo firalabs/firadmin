@@ -18,6 +18,13 @@ return array(
 		'admin' => 'Dashboard',
 		'admin/user' => 'Users'
 	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Set navigation inverse to true if you want to display the nav bar in black
+	|--------------------------------------------------------------------------
+	*/
+	'navigation_inverse' => false,
 	
 	/*
 	|--------------------------------------------------------------------------

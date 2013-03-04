@@ -43,7 +43,7 @@
 		
 		<input type="text" name="username" class="input-block-level" placeholder="Email address">
 		<input type="password" name="password" class="input-block-level" placeholder="Password">
-		<div class="pull-right"><a href="<?php echo URL::to('admin/login/forgot-password')?>"><?php echo Lang::get('firadmin::admin.forgot-password')?></a></div>
+		<div class="pull-right"><a href="<?php echo URL::to(Config::get('firadmin::route.login') . '/forgot-password')?>"><?php echo Lang::get('firadmin::admin.forgot-password')?></a></div>
 		<label class="checkbox">
 			<input type="checkbox" name="remember-me" value="1"><?php echo Lang::get('firadmin::admin.remember-me')?>
 		</label>

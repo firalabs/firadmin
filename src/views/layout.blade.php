@@ -34,7 +34,7 @@
 
 	<?php if(Request::segment(2) !== 'login'):?>
 	<!-- Main navigation -->
-	<div class="navbar navbar-fixed-top">
+	<div class="navbar navbar-fixed-top <?php echo Config::get('firadmin::navigation_inverse')?'navbar-inverse':''?>">
 		<div class="navbar-inner">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -46,7 +46,7 @@
 				<div class="nav-collapse collapse">
 					<ul class="nav pull-right">
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon icon-user"></span> <?php echo !empty(Auth::user()->username)?Auth::user()->username:''?> <b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-user <?php echo Config::get('firadmin::navigation_inverse')?'icon-white':''?>"></span> <?php echo !empty(Auth::user()->username)?Auth::user()->username:''?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' .  (!empty(Auth::user()->id)?Auth::user()->id:''))?>"><?php echo Lang::get('firadmin::admin.profile')?></a></li>
 								<li><a href="<?php echo URL::to(Config::get('firadmin::route.logout'));?>"><?php echo Lang::get('firadmin::admin.logout')?></a></li>

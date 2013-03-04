@@ -1,15 +1,25 @@
 <div class="container">
 
 	<div class="row-fluid">	
-		<div class="span12">
-		
+		<div class="span12">		
 			<?php echo View::make('firadmin::partials.form-message')?>	
-			<h3 class="pull-left"><?php echo Lang::get('firadmin::admin.users')?></h3>	
-			<a href="<?php echo URL::to('admin/user/create');?>" class="btn btn-success pull-right" style="margin-top:15px">
+			<h3><?php echo Lang::get('firadmin::admin.users')?></h3>					
+		</div>	
+	</div>
+	
+	<div class="row-fluid">	
+		<div class="span12">
+			Show
+			<select class="input-small" onchange="window.location.href=$(this).val()">
+				<option value="<?php echo URL::to(Config::get('firadmin::route.user'). '?take=10');?>" <?php echo Input::get('take') == 10?'selected':''?>>10</option>
+				<option value="<?php echo URL::to(Config::get('firadmin::route.user'). '?take=25');?>" <?php echo Input::get('take') == 25?'selected':''?>>25</option>
+				<option value="<?php echo URL::to(Config::get('firadmin::route.user'). '?take=50');?>" <?php echo Input::get('take') == 50?'selected':''?>>50</option>
+				<option value="<?php echo URL::to(Config::get('firadmin::route.user'). '?take=100');?>" <?php echo Input::get('take') == 100?'selected':''?>>100</option>
+			</select> entries			
+			<a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/create');?>" class="btn btn-success pull-right">
 				<span class="icon-white icon-plus"></span> <?php echo Lang::get('firadmin::admin.add-user')?>
 			</a>
-					
-		</div>	
+		</div>
 	</div>
 	
 	<div class="row-fluid">
@@ -27,7 +37,7 @@
 				<tbody>
 					<?php foreach ($users as $user):?>
 					<tr>
-						<td><a href="<?php echo URL::to('admin/user/' . $user->id);?>"><?php echo $user->username?></a></td>
+						<td><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>"><?php echo $user->username?></a></td>
 						<td><?php echo $user->email?></td>
 						<td><?php echo $user->updated_at?></td>
 						<td>
@@ -36,9 +46,9 @@
 									<i class="icon-cog"></i>
 								</a>
 								<ul class="dropdown-menu">          
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id);?>"><?php echo Lang::get('firadmin::admin.show')?></a></li>
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id . '/edit');?>"><?php echo Lang::get('firadmin::admin.edit')?></a></li>
-									<li><a href="<?php echo URL::to('admin/user/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')"><?php echo Lang::get('firadmin::admin.delete')?></a></li>
+									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>"><?php echo Lang::get('firadmin::admin.show')?></a></li>
+									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id . '/edit');?>"><?php echo Lang::get('firadmin::admin.edit')?></a></li>
+									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')"><?php echo Lang::get('firadmin::admin.delete')?></a></li>
 								</ul>
 							</div>
 						</td>
