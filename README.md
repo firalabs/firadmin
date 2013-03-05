@@ -31,7 +31,7 @@ Publish the package configuration to your laravel application to override some o
 php artisan config:publish firalabs/firadmin
 ```
 
-The configuration file could now be found in `app/config/packages/firalabs/firadmin` folder.
+The configuration files could now be found in `app/config/packages/firalabs/firadmin` folder. Just read the descriptions for each configurations to know what you can do.
 
 ##Binding User model IoC
 
