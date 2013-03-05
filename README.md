@@ -33,7 +33,7 @@ php artisan config:publish firalabs/firadmin
 
 The configuration files could now be found in `app/config/packages/firalabs/firadmin` folder. Just read the descriptions for each configurations to know what you can do.
 
-##Binding User model IoC
+##Binding user model
 
 You need to bind a user model to your application. By default, the package already provide one. Simply add this few lines in `app/start/global.php`
 
@@ -47,6 +47,8 @@ App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\User
 App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
 ```
 
+*Note : * Don't forget to define the same model in the `app/config/auth.php`
+
 ##Migrations
 
 IF you want to use the default model provide by the package, you must run the migrations.
@@ -55,7 +57,7 @@ IF you want to use the default model provide by the package, you must run the mi
 php artisan migrate --package="firalabs/firadmin"
 ```
 
-##Register Dashboard controller
+##Register dashboard controller
 
 You must set a route to the dashboard admin panel. We provide a default dashboard controller for testing purpose. Just add this few lines of code.
 
