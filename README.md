@@ -27,8 +27,23 @@ Update your packages with `composer update` or install with `composer install`.
 
 Publish the package configuration to your laravel application to override some of the configuration options.
 
-####Executing The Config Publish Command
+**Executing The Config Publish Command**
 
 ```bash
 php artisan config:publish firalabs/firadmin
+```
+
+##Binding User model IoC
+
+You need to bind a user model to your application. By default, the package already provide one. Simply add this few lines in app/start/global.php
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Application IoC Container binding
+|--------------------------------------------------------------------------
+|*/
+
+App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository');
+App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
 ```
