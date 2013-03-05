@@ -45,6 +45,14 @@ App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\User
 App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
 ```
 
+##Migrations
+
+IF you want to use the default model provide by the package, you must run the migrations.
+
+```bash
+php artisan migrate --package="firalabs/firadmin"
+```
+
 ##Register Dashboard controller
 
 You must set a route to the dashboard admin panel. We provide a default dashboard controller for testing purpose. Just add this few lines of code.
@@ -60,3 +68,15 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 	Route::get('/', 'Firalabs\Firadmin\Controllers\DashboardController@getIndex');
 });
 ```
+
+##Create default user
+
+You need to create a default user to access the admin panel
+
+##Admin controller development
+
+##Custom user model
+
+##Enjoy !!
+
+You admin panel is now completly configure. Just go to http://localhost/admin to access the admin panel.
