@@ -31,6 +31,8 @@ Publish the package configuration to your laravel application to override some o
 php artisan config:publish firalabs/firadmin
 ```
 
+The configuration file could now be found in `app/config/packages/firalabs/firadmin` folder.
+
 ##Binding User model IoC
 
 You need to bind a user model to your application. By default, the package already provide one. Simply add this few lines in `app/start/global.php`
@@ -52,8 +54,6 @@ IF you want to use the default model provide by the package, you must run the mi
 ```bash
 php artisan migrate --package="firalabs/firadmin"
 ```
-
-The configuration file could now be found in `app/config/packages/firalabs/firadmin` folder.
 
 ##Register Dashboard controller
 
