@@ -47,7 +47,7 @@ App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\User
 App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
 ```
 
-**Note : ** Don't forget to set the user model in the `app/config/auth.php` to `'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'`
+**Note** : Don't forget to set the user model in the `app/config/auth.php` to `'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'`
 
 ##Migrations
 
