@@ -79,7 +79,7 @@ You need to create a default user to access the admin panel
 
 ##Admin controller development
 
-When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller.
+When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller create in the folder `app/controllers/Admin/DashboardController.php` 
 
 ```php
 <?php
