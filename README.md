@@ -57,6 +57,30 @@ IF you want to use the default model provide by the package, you must run the pa
 php artisan migrate --package="firalabs/firadmin"
 ```
 
+##Create default user
+
+You need to have at least one register user in your database to be able to connect on the admin panel. You can use this database seeder
+
+```php
+//Create model object
+$user = new Firalabs\Firadmin\Repository\Eloquent\UserRepository();
+
+//Set attributes
+$user->username = 'email@example.com';
+$user->email = 'email@example.com';
+$user->password = 'password';
+
+//Save the user
+$user->forceSave();
+
+//Create role
+$roles = new Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository();		
+$roles->role = 'administrator';		
+			
+//Save the user role
+$user->roles()->save($roles);
+```
+
 ##Register dashboard controller
 
 You must set a route to the dashboard admin panel. We provide a default dashboard controller for testing purpose. Just add this few lines of code.
@@ -72,10 +96,6 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 	Route::get('/', 'Firalabs\Firadmin\Controllers\DashboardController@getIndex');
 });
 ```
-
-##Create default user
-
-You need to create a default user to access the admin panel
 
 ##Admin controller development
 
