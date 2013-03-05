@@ -81,4 +81,4 @@ You need to create a default user to access the admin panel
 
 ##Enjoy !!
 
-You admin panel is now completly configure. Just go to [http://localhost/admin]http://localhost/admin to access the admin panel.
+You admin panel is now completly configure. Just go to [http://localhost/admin](http://localhost/admin) to access the admin panel.
