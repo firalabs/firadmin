@@ -4,10 +4,8 @@ Basic admin panel for Laravel 4.
 ##Features
 * ACL component for application privileges management
 * User management
-* Twitter bootstrap 2.3.1 for the UI
-* Complete login component
-** Login/Logout
-** Password reset
+* Complete admin panel UI using Twitter bootstrap 2.3.1
+* Complete login component with password reset and reminder
 
 ##Installation
 
@@ -43,7 +41,6 @@ You need to bind a user model to your application. By default, the package alrea
 | Application IoC Container binding
 |--------------------------------------------------------------------------
 |*/
-
 App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository');
 App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
 ```
