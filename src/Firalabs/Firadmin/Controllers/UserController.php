@@ -60,13 +60,13 @@ class UserController extends BaseController {
 		//Define the number of item we want to display per page
 		$paginate = Input::get('take')?(int) Input::get('take'):Config::get('firadmin::paginate');
 		
-		//Check if the request type is ajax
+		//Check if it's a ajax request
 		if(AjaxSupport::isAjaxRequest()){
 			
-			//Define the number of skipped row
+			//Define the number of row we want to skip
 			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
 			
-			//Return users list response has a json
+			//Return users list in json
 			return Response::json($this->_users->with('roles')->skip($skip)->take($paginate)->get()->toArray());
 		}
 		
@@ -88,15 +88,10 @@ class UserController extends BaseController {
 			return Permissions::isAllowed('user', 'updated');
 		}
 		
-		//Check if we have selected roles
-		if(Input::old('roles')){
-			
-			$selected_roles = Input::old('roles');
-                        
-		 //Else set to default
-		} else {
-			$selected_roles = array();
-		}
+		//If we have roles set from input
+		Input::old('roles')
+			? $selected_roles = Input::old('roles') //select them from input
+			: $selected_roles = array(); //No roles selected, so just set a empty array
 		
 		//Define the layout content
 		$this->layout->content = View::make('firadmin::users.create', array('selected_roles' => $selected_roles));
@@ -114,43 +109,44 @@ class UserController extends BaseController {
 			return Permissions::isAllowed('user', 'create');
 		}
 				
-		//Save
+		//Try saving the user in database
 		if($this->_users->save()){
 			
 			//If we have roles
 			if(Input::get('roles')){
 				
-				//foreach role
+				//For each role
 				foreach (Input::get('roles') as $role) {						
 				
 					//Create role
 					$roles = app()->make('UserRoleRepositoryInterface');		
 					$roles->role = $role;		
 			
-					//Insert role
+					//Save the user role
 					$this->_users->roles()->save($roles);
 				}
 			}
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::success(Lang::get('firadmin::admin.store-success')) === true){
 				return AjaxSupport::getResponse();
 			}
 	
-			//Redirect
+			//Redirect with a success message
 			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.store-success'));
 			
+		//Else, fail to save the user
 		} else {	
 
-			//Flash input
+			//Flash input to repopulate them in the form
 			Input::flash();
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::error($this->_users->errors()->all(':message')) === true){
 				return AjaxSupport::getResponse();
 			}
 		
-			//Redirect
+			//Redirect to the form with errors 
 			return Redirect::to(Config::get('firadmin::route.user') . '/create')->with('reason', $this->_users->errors()->all(':message<br>'))->with('error', 1);
 			
 		}
@@ -172,21 +168,24 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->_users->find($id);
 		
-		//If the user not exist
+		//If the user don't exist
 		if(!$user){
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
 				return AjaxSupport::getResponse();
 			}
 				
-			//Error reason
+			//Redirect to the user index with errors
 			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
+		//Else, great the user exist !
 		} else {
 		
-			//Check if the request type is ajax
+			//Check if it's a ajax request
 			if(AjaxSupport::isAjaxRequest()){
+				
+				//Simply return the user data in JSON
 				return Response::json($user->toArray());
 			}
 					
@@ -214,29 +213,26 @@ class UserController extends BaseController {
 		//Get the user data
 		$user = $this->_users->find($id);
 		
-		//If the user not exist
+		//If the user don't exist
 		if(!$user){
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
 				return AjaxSupport::getResponse();
 			}
 				
-			//Error reason
+			//Redirect to users index with errors
 			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
+		//Else the user exist great !
 		} else {
 		
-			//Check if we have selected roles
-			if(Input::old('roles')){
-				
-				$selected_roles = Input::old('roles');
-	                        
-			 //Else set to default
-			} else {
-				$selected_roles = $user->getRoles();
-			}
+			//If we have roles set from input
+			Input::old('roles')
+				? $selected_roles = Input::old('roles') //select them from input
+				: $selected_roles = $user->getRoles(); //No roles selected, get them from the model			
 			
+			//Define the layout content
 			$this->layout->content = View::make('firadmin::users.edit', array(
 				'user' => $user,
 				'selected_roles' => $selected_roles
@@ -261,20 +257,21 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->_users->find($id);
 		
-		//If the user not exist
+		//If the user don't exist
 		if(!$user){
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
 				return AjaxSupport::getResponse();
 			}
 				
-			//Error reason
+			//Redirect to user index with errors
 			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
+		//Else, great the user exist !!
 		} else {
 			
-			//Define validation rules
+			//Define custom validation rules because we don't want to validate same field then user store
 			$rules = array(
 			    'username' => 'required|min:5|unique:users',
 			    'email' => 'required|email|unique:users',
@@ -283,66 +280,67 @@ class UserController extends BaseController {
 			//Check if the username have changed
 			if($user->username == Input::get ('username')){
 				
-				//The email adress not changed, so replace the email validation rules
+				//The username still the same so replace the validation rules
 				$rules['username'] = 'required|min:5';
 				
 			}
 			
-			//Check if the user email have changed
+			//Check if the email have changed
 			if($user->email == Input::get ('email')){
 				
-				//The email adress not changed, so replace the email validation rules
+				//The email still the same so replace the validation rules
 				$rules['email'] = 'required|email';
 				
 			}
 				
-			//Update user
+			//Update user data
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
 			
 			//Just before save, we don't want to auto hash the existing password, replace this later if possible
 			$user->autoHashPasswordAttributes = false;		
 				
-			//Save
+			//Try to save the user
 			if($user->save($rules)){			
 				
 				//Delete the user roles
 				$user->roles()->delete();		
 				
-				//If we have roles
+				//If we have roles define for the user
 				if(Input::get('roles')){
 					
-					//foreach role
+					//For each roles
 					foreach (Input::get('roles') as $role) {
 						
-						//Create role
+						//Create the role object
 						$roles = app()->make('UserRoleRepositoryInterface');		
 						$roles->role = $role;		
 				
-						//Insert role
+						//Save the user role
 						$user->roles()->save($roles);
 					}
 				}	
 
-				//Check if the request type is ajax
+				//Returns a response in JSON format if it's an Ajax request
 				if(AjaxSupport::success( Lang::get('firadmin::admin.update-success')) === true){
 					return AjaxSupport::getResponse();
 				}
 		
-				//Redirect
+				//Redirect to index with success message
 				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-success'));
 				
+			//Else, save validation fail
 			} else {
 	
-				//Flash input
+				//Flash input to repopulate them in the form
 				Input::flash();	
 
-				//Check if the request type is ajax
+				//Returns a response in JSON format if it's an Ajax request
 				if(AjaxSupport::error($user->errors()->all(':message')) === true){
 					return AjaxSupport::getResponse();
 				}
 			
-				//Redirect
+				//Redirect to the form with errors
 				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
 				
 			}
@@ -365,51 +363,53 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->_users->find($id);
 		
-		//If the user not exist
+		//If the user don't exist
 		if(!$user){
 			
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
 				return AjaxSupport::getResponse();
 			}
 				
-			//Error reason
+			//Redirect to user index with error
 			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
 			
+		// Else, great the user exist !!!
 		} else {
 		
-			//Define validation rules
+			//Define custom validation rules because we don't want to validate same field then user store
 			$rules = array(
 		    	'password' => 'required|min:5',
 		    	'password_confirmation' => 'required|min:5|same:password',
 		    );
 				
-			//Update user	
+			//Update user
 			$user->password = Input::get('password');
 			$user->password_confirmation = Input::get('password_confirmation');
 			
-			//Save
+			//Try to save the user
 			if($user->save($rules)){
 				
-				//Check if the request type is ajax
+				//Returns a response in JSON format if it's an Ajax request
 				if(AjaxSupport::success( Lang::get('firadmin::admin.update-password-success') ) === true){
 					return AjaxSupport::getResponse();
 				}
 		
-				//Redirect
+				//Redirect to user index with success message
 				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-password-success'));
 				
+			//Else, save validation fail
 			} else {
 	
-				//Flash input
+				//Flash input to repopulate them in the form
 				Input::flash();
 				
-				//Check if the request type is ajax
+				//Returns a response in JSON format if it's an Ajax request
 				if( AjaxSupport::error( $user->errors()->all(':message')) === true){
 					return AjaxSupport::getResponse();
 				}
 				
-				//Set reason why error
+				//Redirect to the form with errors
 				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
 				
 			}
@@ -432,17 +432,18 @@ class UserController extends BaseController {
 		//Get the user in database
 		$user = $this->_users->find($id);
 		
-		//If the user doesn't exist
+		//If the user don't exist
 		if(!$user){
 				
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if( AjaxSupport::error( Lang::get('firadmin::admin.destroy-fail')) === true){
 				return AjaxSupport::getResponse();
 			}
 				
-			//Error reason
+			//Redirect to user index with errors
 			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
 			
+		//Else, great the user exist !!
 		} else {		
 			
 			//Delete the user roles
@@ -451,12 +452,12 @@ class UserController extends BaseController {
 			//Delete the user
 			$user->delete($id);	
 
-			//Check if the request type is ajax
+			//Returns a response in JSON format if it's an Ajax request
 			if( AjaxSupport::success( Lang::get('firadmin::admin.destroy-success') ) === true){
 				return AjaxSupport::getResponse();
 			}
 			
-			//Success message
+			//Redirect to the user index with success message
 			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.destroy-success'));
 		}
 	}
