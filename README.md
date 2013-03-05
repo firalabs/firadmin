@@ -117,9 +117,9 @@ class Admin_DashboardController extends BaseController {
 }
 ```
 
-##Custom models
+##Custom models repositories
 
-You can create your own user and user role model. You can directly extend the models provide by the package to add your custom feature or override validation rules. You have the possiblity to create your own repository instead. Just implement the interfaces provide in the Firalabs\Firadmin\Repository namespace.
+You can directly extend those provided in the packages or simply implement the interfaces provided in the Firalabs\Firadmin\Repository namespace.
 
 ##Enjoy !!
 
