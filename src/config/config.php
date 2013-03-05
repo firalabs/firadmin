@@ -4,14 +4,18 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Layout view name
+	| The view used as a layout for the admin panel
 	|--------------------------------------------------------------------------
 	*/
 	'layout' => 'firadmin::layout',
 
 	/*
 	|--------------------------------------------------------------------------
-	| Admin navigation array
+	| Navigation array us to generate the nav in admin panel
+	| 
+	| 'navigation' => array(
+	|	'uri' => 'title' //The key is use to generate the Url
+	| )
 	|--------------------------------------------------------------------------
 	*/
 	'navigation' => array(
@@ -21,28 +25,29 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Set navigation inverse to true if you want to display the nav bar in black
+	| You can inverse the color of the twitter bootstrap nav bar.
+	| You jsut need to set to TRUE
 	|--------------------------------------------------------------------------
 	*/
 	'navigation_inverse' => false,
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Project name
+	| The name of the project that would be displayed as "brand" in the layout
 	|--------------------------------------------------------------------------
 	*/
 	'project_name' => 'Firadmin',
 
 	/*
 	|--------------------------------------------------------------------------
-	| Project url
+	| The project base URL
 	|--------------------------------------------------------------------------
 	*/
 	'project_url' => '#',
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Title of the application
+	| Title of the application display in the browser
 	|--------------------------------------------------------------------------
 	*/
 	'title' => 'Firadmin - Admin panel for Laravel 4+',
@@ -56,8 +61,8 @@ return array(
 	
 	/*
 	|--------------------------------------------------------------------------
-	| When you use custom route, you MUST change redirect routing in the controller
-	| to match your custom route.
+	| If you want to use custom routing but you want to use the default package controller,
+	| You must change the URI of the route in this configurations to redirect controller properly
 	|--------------------------------------------------------------------------
 	*/
 	'route' => array(
@@ -68,14 +73,14 @@ return array(
 	
 	/*
 	|--------------------------------------------------------------------------
-	| The number of items you wish to display per page. Use by the pagination
+	| The default number of items you wish to display per page. Currently use by the paginator
 	|--------------------------------------------------------------------------
 	*/
 	'paginate' => 10,
 	
 	/*
 	|--------------------------------------------------------------------------
-	| The number of items you wish to display per page. Use by the pagination
+	| Assets you want to integrate in the layout
 	|--------------------------------------------------------------------------
 	*/
 	'assets' => array(
@@ -101,7 +106,7 @@ return array(
 	| ACL available roles list
 	|
 	| If you don't want to handle permissions in your application, use only the administrator roles.
-	| Also, you can add custom roles for your application.
+	| Also, you can add custom roles for your application and custom resources.
 	|
 	|--------------------------------------------------------------------------
 	*/
