@@ -42,12 +42,12 @@
 						<td><?php echo $user->updated_at?></td>
 						<td>
 							<div class="btn-group">
+								<a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id . '/edit');?>" class="btn btn-small"><?php echo Lang::get('firadmin::admin.edit')?></a>
 								<a data-toggle="dropdown" class="btn btn-small dropdown-toggle">
 									<i class="icon-cog"></i>
 								</a>
-								<ul class="dropdown-menu">          
+								<ul class="dropdown-menu pull-right">          
 									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>"><?php echo Lang::get('firadmin::admin.show')?></a></li>
-									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id . '/edit');?>"><?php echo Lang::get('firadmin::admin.edit')?></a></li>
 									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')"><?php echo Lang::get('firadmin::admin.delete')?></a></li>
 								</ul>
 							</div>

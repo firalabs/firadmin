@@ -18,6 +18,8 @@ use Firalabs\Firadmin\Facades\Permissions;
  */
 class UserController extends BaseController {
 	
+	protected $_users;
+	
 	/**
 	 * Constructor
 	 */
@@ -26,11 +28,8 @@ class UserController extends BaseController {
     	//Add csrf protection when posting forms
     	$this->beforeFilter('csrf', array('on' => array('post', 'put')));
     	
-    	//Get the user model used by authentification
-    	$model_name = Config::get('auth.model');
-    	
     	//Create user object
-    	$this->user = new $model_name;
+    	$this->_users = app()->make('UserRepositoryInterface');
     }
     
     /**
@@ -68,12 +67,12 @@ class UserController extends BaseController {
 			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
 			
 			//Return users list response has a json
-			return Response::json($this->user->with('roles')->skip($skip)->take($paginate)->get()->toArray());
+			return Response::json($this->_users->with('roles')->skip($skip)->take($paginate)->get()->toArray());
 		}
 		
 		//Define the layout content
 		$this->layout->content = View::make('firadmin::users.index', array(
-			'users' => $this->user->with('roles')->paginate($paginate)->appends('take', $paginate)
+			'users' => $this->_users->with('roles')->paginate($paginate)->appends('take', $paginate)
 		));
 	}
 
@@ -116,19 +115,20 @@ class UserController extends BaseController {
 		}
 				
 		//Save
-		if($this->user->save()){
+		if($this->_users->save()){
 			
 			//If we have roles
 			if(Input::get('roles')){
 				
 				//foreach role
-				foreach (Input::get('roles') as $role) {
+				foreach (Input::get('roles') as $role) {						
 				
 					//Create role
-					$role = new UserRolesModel(array('role' => $role));				
+					$roles = app()->make('UserRoleRepositoryInterface');		
+					$roles->role = $role;		
 			
 					//Insert role
-					$this->user->roles()->save($role);
+					$this->_users->roles()->save($roles);
 				}
 			}
 			
@@ -146,12 +146,12 @@ class UserController extends BaseController {
 			Input::flash();
 			
 			//Check if the request type is ajax
-			if(AjaxSupport::error($this->user->errors()->all(':message')) === true){
+			if(AjaxSupport::error($this->_users->errors()->all(':message')) === true){
 				return AjaxSupport::getResponse();
 			}
 		
 			//Redirect
-			return Redirect::to(Config::get('firadmin::route.user') . '/create')->with('reason', $this->user->errors()->all(':message<br>'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user') . '/create')->with('reason', $this->_users->errors()->all(':message<br>'))->with('error', 1);
 			
 		}
 	}
@@ -170,7 +170,7 @@ class UserController extends BaseController {
 		}
 		
 		//Get the user in database
-		$user = $this->user->find($id);
+		$user = $this->_users->find($id);
 		
 		//If the user not exist
 		if(!$user){
@@ -212,7 +212,7 @@ class UserController extends BaseController {
 		}	
 		
 		//Get the user data
-		$user = $this->user->find($id);
+		$user = $this->_users->find($id);
 		
 		//If the user not exist
 		if(!$user){
@@ -259,7 +259,7 @@ class UserController extends BaseController {
 		}
 			
 		//Get the user in database
-		$user = $this->user->find($id);
+		$user = $this->_users->find($id);
 		
 		//If the user not exist
 		if(!$user){
@@ -314,12 +314,13 @@ class UserController extends BaseController {
 					
 					//foreach role
 					foreach (Input::get('roles') as $role) {
-					
+						
 						//Create role
-						$role = new UserRolesModel(array('role' => $role));				
+						$roles = app()->make('UserRoleRepositoryInterface');		
+						$roles->role = $role;		
 				
 						//Insert role
-						$user->roles()->save($role);
+						$user->roles()->save($roles);
 					}
 				}	
 
@@ -362,7 +363,7 @@ class UserController extends BaseController {
 		}
 			
 		//Get the user in database
-		$user = $this->user->find($id);
+		$user = $this->_users->find($id);
 		
 		//If the user not exist
 		if(!$user){
@@ -429,7 +430,7 @@ class UserController extends BaseController {
 		}
 		
 		//Get the user in database
-		$user = $this->user->find($id);
+		$user = $this->_users->find($id);
 		
 		//If the user doesn't exist
 		if(!$user){
