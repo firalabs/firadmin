@@ -51,7 +51,7 @@ App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\
 
 ##Migrations
 
-IF you want to use the default model provide by the package, you must run the migrations.
+IF you want to use the default model provide by the package, you must run the package migrations.
 
 ```bash
 php artisan migrate --package="firalabs/firadmin"
@@ -78,6 +78,44 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 You need to create a default user to access the admin panel
 
 ##Admin controller development
+
+When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller.
+
+```php
+<?php
+
+use Firalabs\Firadmin\Controllers\BaseController;
+
+/**
+ * Dashboard controller for admin panel
+ * 
+ * @author maxime.beaudoin
+ */
+class Admin_DashboardController extends BaseController {
+    
+    /**
+     * (non-PHPdoc)
+     * @see Firalabs\Firadmin\Controllers.BaseController::setupLayout()
+     */
+    protected function setupLayout()
+    {
+    	//Trigger parent
+    	parent::setupLayout();
+		
+		//Active menu
+		$this->layout->active_menu = 'admin';
+    }
+
+	/**
+	 * Get the dashboard
+	 */
+	public function getIndex()
+	{
+		//Set layout content
+		$this->layout->content = View::make('admins.dashboard');
+	}
+}
+```
 
 ##Custom user model
 
