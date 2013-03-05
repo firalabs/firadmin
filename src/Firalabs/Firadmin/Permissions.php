@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Lang;
  * 
  * @author maxime.beaudoin
  */
-class Permissions {
+class Permissions 
+{
+	
+	/**
+	 * The response object
+	 * 
+	 * @var Response
+	 */
+	protected $_response;
 	
 	/**
 	 * The acl object
@@ -73,6 +81,9 @@ class Permissions {
 	 */
 	public function isAllowed($resource = null, $privilege = null){
 		
+		//Reset response
+		$this->_response = null;
+		
 		//Get the current logged user roles
 		$roles = Auth::user()->getRoles();
 		
@@ -83,6 +94,18 @@ class Permissions {
 			}
 		}
 		
-		return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+		//Set the response
+		$this->_response = Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+		
+		return false;
+	}
+	
+	/**
+	 * Get the response
+	 * 
+	 * @return Reponse
+	 */
+	public function getResponse(){
+		return $this->_response;
 	}
 }

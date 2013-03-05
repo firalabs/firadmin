@@ -25,7 +25,7 @@ class UserController extends BaseController {
 	 */
 	public function __construct()
     {    	    	
-    	//Add csrf protection when posting forms
+    	//Add csrf filter when posting forms
     	$this->beforeFilter('csrf', array('on' => array('post', 'put')));
     	
     	//Create user object
@@ -34,7 +34,7 @@ class UserController extends BaseController {
     
     /**
      * (non-PHPdoc)
-     * @see Firalabs\Firadmin\Controllers.BaseController::setupLayout()
+     * @see Firalabs\Firadmin\Controllers\BaseController::setupLayout()
      */
     protected function setupLayout()
     {
@@ -54,7 +54,7 @@ class UserController extends BaseController {
 	{		
 		//Check permission
 		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::isAllowed('user', 'updated');
+			return Permissions::getResponse();
 		}
 		
 		//Define the number of item we want to display per page
@@ -85,7 +85,7 @@ class UserController extends BaseController {
 	{		
 		//Check permission
 		if(Permissions::isAllowed('user', 'create') !== true){
-			return Permissions::isAllowed('user', 'updated');
+			return Permissions::getResponse();
 		}
 		
 		//If we have roles set from input
@@ -106,7 +106,7 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed('user', 'create') !== true){
-			return Permissions::isAllowed('user', 'create');
+			return Permissions::getResponse();
 		}
 				
 		//Try saving the user in database
@@ -162,7 +162,7 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed('user', 'read') !== true){
-			return Permissions::isAllowed('user', 'read');
+			return Permissions::getResponse();
 		}
 		
 		//Get the user in database
@@ -207,7 +207,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::isAllowed('user', 'update');
+			return Permissions::getResponse();
 		}	
 		
 		//Get the user data
@@ -251,7 +251,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::isAllowed('user', 'update');
+			return Permissions::getResponse();
 		}
 			
 		//Get the user in database
@@ -357,7 +357,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::isAllowed('user', 'update');
+			return Permissions::getResponse();
 		}
 			
 		//Get the user in database
@@ -426,7 +426,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed('user', 'delete') !== true){
-			return Permissions::isAllowed('user', 'delete');
+			return Permissions::getResponse();
 		}
 		
 		//Get the user in database
