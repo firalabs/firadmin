@@ -33,9 +33,9 @@ php artisan config:publish firalabs/firadmin
 
 The configuration files could now be found in `app/config/packages/firalabs/firadmin` folder. Just read the descriptions for each configurations to know what you can do.
 
-##Binding user model
+##Binding models
 
-You need to bind a user model to your application. By default, the package already provide one. Simply add this few lines in `app/start/global.php`
+You need to bind a user and a user role model to your application. By default, the package already provide those. Simply add this few lines in `app/start/global.php`
 
 ```php
 /*
@@ -43,8 +43,8 @@ You need to bind a user model to your application. By default, the package alrea
 | Application IoC Container binding
 |--------------------------------------------------------------------------
 |*/
-App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository');
-App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
+App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'); //User model
+App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
 ```
 
 *Note : * Don't forget to define the same model in the `app/config/auth.php`
