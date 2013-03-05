@@ -119,7 +119,7 @@ class Admin_DashboardController extends BaseController {
 
 ##Custom models repositories
 
-You can directly extend those provided in the packages or simply implement the interfaces provided in the Firalabs\Firadmin\Repository namespace.
+You can directly extend those in the packages or simply implement the interfaces provided in the Firalabs\Firadmin\Repository namespace.
 
 ##Enjoy !!
 
