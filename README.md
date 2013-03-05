@@ -2,8 +2,8 @@
 Basic admin panel for Laravel 4.
 
 ##Features
-* ACL component for application privileges management
 * User management
+* ACL component for application privileges management
 * Complete admin panel UI using Twitter bootstrap 2.3.1
 * Complete login component with password reset and reminder
 
@@ -43,4 +43,20 @@ You need to bind a user model to your application. By default, the package alrea
 |*/
 App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository');
 App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository');
+```
+
+##Register Dashboard controller
+
+You must set a route to the dashboard admin panel. We provide a default dashboard controller for testing purpose. Just add this few lines of code.
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Register admin controllers
+|--------------------------------------------------------------------------
+*/
+Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
+{	
+	Route::get('/', 'Firalabs\Firadmin\Controllers\DashboardController@getIndex');
+});
 ```
