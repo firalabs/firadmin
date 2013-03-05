@@ -24,9 +24,9 @@ Add `firalabs/firadmin` as a requirement to `composer.json`:
 Publish the package configuration to your laravel application to override some of the configuration options
 
 
-###Executing The Config Publish Command
+####Executing The Config Publish Command
 
-```php
+```bash
 php artisan config:publish firalabs/firadmin
 ```
 
