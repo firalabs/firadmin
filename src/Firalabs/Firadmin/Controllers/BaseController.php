@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
  * @author maxime.beaudoin
  */
 class BaseController extends Controller {
+	
+	/**
+	 * The current active menu URI
+	 * 
+	 * @var string
+	 */
+	public $active_menu;
 
 	/**
 	 * Setup the layout used by the controller.
@@ -30,7 +37,7 @@ class BaseController extends Controller {
 		$this->layout->navigation = Config::get('firadmin::navigation');
 		
 		//Default we don't have active menu 
-		$this->layout->active_menu = '';	
+		$this->layout->active_menu = $this->active_menu;	
 		
 		//Set javascript assets
 		$this->layout->assets = Config::get('firadmin::assets');	

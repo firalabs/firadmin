@@ -15,6 +15,13 @@ use Firalabs\Firadmin\Facades\Permissions;
  * @author maxime.beaudoin
  */
 class UserController extends BaseController {
+
+/**
+	 * The current active menu URI
+	 * 
+	 * @var string
+	 */
+	public $active_menu = 'admin/user';
 	
 	/**
 	 * User repository
@@ -33,19 +40,6 @@ class UserController extends BaseController {
     	
     	//Create user object
     	$this->_users = app()->make('UserRepositoryInterface');
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see Firalabs\Firadmin\Controllers\BaseController::setupLayout()
-     */
-    protected function setupLayout()
-    {
-    	//Trigger parent
-    	parent::setupLayout();
-		
-		//Active menu
-		$this->layout->active_menu = 'admin/user';
     }
 
 	/**

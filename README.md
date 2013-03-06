@@ -110,29 +110,23 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller create in the folder `app/controllers/Admin/DashboardController.php` 
 
 ```php
-<?php
+<?php namespace Firalabs\Firadmin\Controllers;
 
-use Firalabs\Firadmin\Controllers\BaseController;
+use Illuminate\Support\Facades\View;
 
 /**
- * Dashboard controller for admin panel
+ * Default dashboard controller
  * 
  * @author maxime.beaudoin
  */
-class Admin_DashboardController extends BaseController {
+class DashboardController extends BaseController {
     
-    /**
-     * (non-PHPdoc)
-     * @see Firalabs\Firadmin\Controllers.BaseController::setupLayout()
-     */
-    protected function setupLayout()
-    {
-    	//Trigger parent
-    	parent::setupLayout();
-		
-		//Active menu
-		$this->layout->active_menu = 'admin';
-    }
+	/**
+	 * The current active menu URI
+	 * 
+	 * @var string
+	 */
+	public $active_menu = 'admin';
 
 	/**
 	 * Get the dashboard
@@ -140,7 +134,7 @@ class Admin_DashboardController extends BaseController {
 	public function getIndex()
 	{
 		//Set layout content
-		$this->layout->content = View::make('admins.dashboard');
+		$this->layout->content = View::make('firadmin::dashboard');
 	}
 }
 ```

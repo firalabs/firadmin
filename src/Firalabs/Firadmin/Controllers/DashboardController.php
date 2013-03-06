@@ -9,18 +9,12 @@ use Illuminate\Support\Facades\View;
  */
 class DashboardController extends BaseController {
     
-    /**
-     * (non-PHPdoc)
-     * @see Firalabs\Firadmin\Controllers.BaseController::setupLayout()
-     */
-    protected function setupLayout()
-    {
-    	//Trigger parent
-    	parent::setupLayout();
-		
-		//Active menu
-		$this->layout->active_menu = 'admin';
-    }
+	/**
+	 * The current active menu URI
+	 * 
+	 * @var string
+	 */
+	public $active_menu = 'admin';
 
 	/**
 	 * Get the dashboard
