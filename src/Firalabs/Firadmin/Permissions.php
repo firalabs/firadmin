@@ -77,7 +77,7 @@ class Permissions
 	 * Check is the user is allowed to the resource on the privilege
 	 * @param string $resource
 	 * @param string $privilege
-	 * @return bool|Redirect
+	 * @return bool
 	 */
 	public function isAllowed($resource = null, $privilege = null){
 		

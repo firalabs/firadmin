@@ -105,6 +105,34 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 });
 ```
 
+##Facades
+
+We have two available facades:
+* Permission
+* AjaxSupport
+
+You can add this facade to your ```app/config/app.php``` file.
+
+```php
+array(
+	'aliases' => array(
+		'AjaxSupport' => 'Firalabs\Firadmin\Facades\AjaxSupport',
+		'Permissions' => 'Firalabs\Firadmin\Facades\Permissions'
+	)
+);
+```
+
+##Permissions
+
+To handle privileges, simply use this method :
+
+```php
+//Check permission
+if(Permissions::isAllowed($role, 'update') !== true){
+	return Permissions::getResponse();
+}
+```
+
 ##Admin controller development
 
 When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller create in the folder `app/controllers/Admin/DashboardController.php` 
