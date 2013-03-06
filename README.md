@@ -23,6 +23,12 @@ Update your packages with `composer update` or install with `composer install`.
 
 ##Configurations
 
+Add the package to your service provider in ```app/config/app.php```
+
+```php
+Firalabs\Firadmin\FiradminServiceProvider
+```
+
 Publish the package configuration to your laravel application to override some of the configuration options.
 
 **Executing The Config Publish Command**
