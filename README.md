@@ -138,16 +138,14 @@ if(Permissions::isAllowed($role, 'update') !== true){
 When you want to create a new admin controller, simply extend the BaseController provide in the package. Is a example of a dashboard controller create in the folder `app/controllers/Admin/DashboardController.php` 
 
 ```php
-<?php namespace Firalabs\Firadmin\Controllers;
-
-use Illuminate\Support\Facades\View;
+<?php
 
 /**
  * Default dashboard controller
  * 
  * @author maxime.beaudoin
  */
-class DashboardController extends BaseController {
+class Admin_DashboardController extends BaseController {
     
 	/**
 	 * The current active menu URI
@@ -169,7 +167,7 @@ class DashboardController extends BaseController {
 
 ##Custom models repositories
 
-You can directly extend those in the packages or simply implement the interfaces provided in the Firalabs\Firadmin\Repository namespace.
+You can directly extend those in the packages or simply implement the interfaces provided in ```Firalabs\Firadmin\Repository```.
 
 ##Enjoy !!
 
