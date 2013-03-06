@@ -3,7 +3,7 @@ Basic admin panel for Laravel 4.
 
 ##Features
 * User management with roles permissions
-* Base controller for admin panel
+* Base controller use for admin panel development
 * ACL component for application privileges management
 * Complete admin panel UI using Twitter bootstrap 2.3.1
 * Complete login component with password reset and reminder
