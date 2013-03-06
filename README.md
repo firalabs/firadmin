@@ -21,6 +21,11 @@ Add `firalabs/firadmin` as a requirement to `composer.json`:
 
 Update your packages with `composer update` or install with `composer install`.
 
+
+## Documentation
+
+* [Configurations]
+
 ##Configurations
 
 Add the package to your service provider in ```app/config/app.php```
