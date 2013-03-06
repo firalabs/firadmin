@@ -28,6 +28,6 @@ class DashboardController extends BaseController {
 	public function getIndex()
 	{
 		//Set layout content
-		$this->layout->content = View::make('admins.dashboard');
+		$this->layout->content = View::make('firadmin::dashboard');
 	}
 }
