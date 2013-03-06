@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
 use Firalabs\Firadmin\Facades\AjaxSupport;
 use Firalabs\Firadmin\Facades\Permissions;
+use \Firalabs\Firadmin\Repository\UserRepositoryInterface;
+use \Firalabs\Firadmin\Repository\UserRoleRepositoryInterface;
 
 /**
  * Controller used for users managment
@@ -33,13 +35,13 @@ class UserController extends BaseController {
 	/**
 	 * Constructor
 	 */
-	public function __construct()
+	public function __construct(UserRepositoryInterface $user)
     {    	    	
     	//Add csrf filter when posting forms
     	$this->beforeFilter('csrf', array('on' => array('post', 'put')));
     	
     	//Create user object
-    	$this->_users = app()->make('UserRepositoryInterface');
+    	$this->_users = $user;
     }
 
 	/**
@@ -116,7 +118,7 @@ class UserController extends BaseController {
 				foreach (Input::get('roles') as $role) {						
 				
 					//Create role
-					$roles = app()->make('UserRoleRepositoryInterface');		
+					$roles = app()->make('Firalabs\Firadmin\Repository\UserRoleRepositoryInterface');		
 					$roles->role = $role;		
 			
 					//Save the user role
@@ -310,7 +312,7 @@ class UserController extends BaseController {
 					foreach (Input::get('roles') as $role) {
 						
 						//Create the role object
-						$roles = app()->make('UserRoleRepositoryInterface');		
+						$roles = app()->make('Firalabs\Firadmin\Repository\UserRoleRepositoryInterface');		
 						$roles->role = $role;		
 				
 						//Save the user role

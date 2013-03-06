@@ -66,8 +66,8 @@ You need to bind a user and a user role model to your application. By default, t
 | Application IoC Container binding
 |--------------------------------------------------------------------------
 |*/
-App::bind('UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'); //User model
-App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
+App::bind('Firalabs\Firadmin\Repository\UserRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'); //User model
+App::bind('Firalabs\Firadmin\Repository\UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
 ```
 
 **Note** : Don't forget to set the user model in the `app/config/auth.php` to `'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'`

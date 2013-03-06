@@ -8,6 +8,7 @@ Route::group(array ('prefix' => 'admin' ), function ()
 {
 	Route::controller('login', 'Firalabs\Firadmin\Controllers\LoginController');
 	Route::get('logout', 'Firalabs\Firadmin\Controllers\LoginController@getLogout');
+	Route::get('login', array('as' => 'login', 'uses' => 'Firalabs\Firadmin\Controllers\LoginController@getLogin'));
 });
 
 /*
