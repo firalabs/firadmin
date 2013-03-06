@@ -24,8 +24,9 @@ Update your packages with `composer update` or install with `composer install`.
 
 ## Documentation
 
-* [Configurations]
+* [Configurations](#intro)
 
+<a name="start"></a>
 ##Configurations
 
 Add the package to your service provider in ```app/config/app.php```
