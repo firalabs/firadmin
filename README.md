@@ -24,10 +24,16 @@ Update your packages with `composer update` or install with `composer install`.
 
 ## Documentation
 
-* [Configurations](#config)
-* [Binding models](#bindingmodel)
+* [Configurations](#configurations)
+* [Binding models](#binding-models)
+* [Migrations](#migrations)
+* [Create default user](#create-default-user)
+* [Register dashboard controller](#register-dashboard-controller)
+* [Facades](#facades)
+* [Permissions](#permissions)
+* [Admin controller development](#admin-controller-development)
+* [Custom models repositories](#custom-models-repositories)
 
-<a name="config"></a>
 ##Configurations
 
 Add the package to your service provider in ```app/config/app.php```
@@ -46,7 +52,6 @@ php artisan config:publish firalabs/firadmin
 
 The configuration files could now be found in `app/config/packages/firalabs/firadmin` folder. Just read the descriptions for each configurations to know what you can do.
 
-<a name="bindingmodel"></a>
 ##Binding models
 
 You need to bind a user and a user role model to your application. By default, the package already provide those. Simply add this few lines in `app/start/global.php`
