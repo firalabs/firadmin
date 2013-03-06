@@ -9,6 +9,8 @@ Basic admin panel for Laravel 4.
 * Complete login component with password reset and reminder
 * Easily configurable
 
+**Coming soon** :  Generators support to speed up your development process when using this package.
+
 ##Installation
 
 Add `firalabs/firadmin` as a requirement to `composer.json`:
