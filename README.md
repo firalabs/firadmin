@@ -57,9 +57,11 @@ App::bind('UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\
 
 ##Migrations
 
-IF you want to use the default model provide by the package, you must run the package migrations.
+IF you want to use the default model provide by the package, you must run the package migrations and the authentification reminders migration.
 
 ```bash
+php artisan auth:reminders
+php artisan migrate
 php artisan migrate --package="firalabs/firadmin"
 ```
 

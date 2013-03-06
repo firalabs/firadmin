@@ -1,7 +1,5 @@
 <?php namespace Firalabs\Firadmin\Controllers;
 
-use Firalabs\Firadmin\Models\UserRolesModel;
-
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
@@ -18,6 +16,11 @@ use Firalabs\Firadmin\Facades\Permissions;
  */
 class UserController extends BaseController {
 	
+	/**
+	 * User repository
+	 * 
+	 * @var UserRepositoryInterface
+	 */
 	protected $_users;
 	
 	/**
