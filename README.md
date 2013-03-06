@@ -124,7 +124,7 @@ array(
 
 ##Permissions
 
-To handle privileges, simply use this method :
+To handle privileges, simply use this code in your controller action method. If the role is not allowed, the permissions library will redirect the user to the admin index with a error message.
 
 ```php
 //Check permission
