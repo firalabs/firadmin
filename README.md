@@ -68,7 +68,7 @@ App::bind('Firalabs\Firadmin\Repository\UserRepositoryInterface', 'Firalabs\Fira
 App::bind('Firalabs\Firadmin\Repository\UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
 ```
 
-After that, you must set the same repository has a model in `app/config/auth.php`
+After that, you must set the same user repository has a model in `app/config/auth.php`
 
 ```
 'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'
@@ -76,7 +76,7 @@ After that, you must set the same repository has a model in `app/config/auth.php
 
 ##Migrations
 
-If you want to use the default models provided in the package, you must run this migration commands.
+If you use the default models provided in the package, you must run this migration commands.
 
 ```bash
 php artisan auth:reminders
@@ -127,7 +127,7 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 ##Facades
 
 We have two available facades:
-* Permission
+* Permissions
 * AjaxSupport
 
 You can add this facade to your ```app/config/app.php``` file.
@@ -147,7 +147,7 @@ To handle privileges, simply use this code in your controller action method. If 
 
 ```php
 //Check permission
-if(Permissions::isAllowed($resource, 'update') !== true){
+if(Permissions::isAllowed('user', 'update') !== true){
 	return Permissions::getResponse();
 }
 ```
@@ -158,6 +158,8 @@ When you want to create a new admin controller, simply extend the BaseController
 
 ```php
 <?php
+
+use Firalabs\Firadmin\Controllers\BaseController;
 
 /**
  * Default dashboard controller
