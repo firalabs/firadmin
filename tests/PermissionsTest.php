@@ -84,4 +84,18 @@ class PermissionsTest extends PHPUnit_Framework_TestCase
 		$permissions = new Permissions($this->_roles, $this->_resources);
 		$this->assertTrue($permissions->isAllowed($mock, 'user', 'update'));
 	}
+
+	/**
+	 * testUserAdministatorIsNotAllowed
+	 */
+	public function testUserAdministatorIsNotAllowed()
+	{
+		//Mock the user repository
+		$mock = m::mock('Firalabs\Firadmin\Repository\Eloquent\UserRepository');
+		$mock->shouldReceive('getRoles')->once()->andReturn(array ('user_administrator' ));
+		
+		//Test permission
+		$permissions = new Permissions($this->_roles, $this->_resources);
+		$this->assertFalse($permissions->isAllowed($mock, 'user', 'do_something_else'));
+	}
 }
