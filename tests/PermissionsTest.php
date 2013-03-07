@@ -5,7 +5,6 @@ namespace FiradminTests;
 use PHPUnit_Framework_TestCase;
 use Mockery as m;
 use Firalabs\Firadmin\Permissions;
-use Firalabs\Firadmin\Repository\Eloquent\UserRepository as UserRepositoryInterface;
 
 /**
  * Test case for permission library

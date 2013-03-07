@@ -3,8 +3,6 @@
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
 
 /**
  * This is the ACL component use to handle permissions on the laravel application.
