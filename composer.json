@@ -1,7 +1,7 @@
 {
     "name": "firalabs/firadmin",
     "description": "Basic admin panel for Laravel 4 with login and user controller implementation",
-    "keywords": ["laravel","admin","user"],
+    "keywords": ["laravel","admin","user","login","cpanel","managment","privilege"],
     "authors": [
         {
             "name": "Maxime Beaudoin",
