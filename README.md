@@ -86,26 +86,10 @@ php artisan migrate --package="firalabs/firadmin"
 
 ##Create default user
 
-You need to have at least one register user in your database to be able to login. You can use this database seeder
+You need to have at least one register user in your database to be able to login. We provided a easy way to create a user using artisan command.
 
-```php
-//Create model object
-$user = new Firalabs\Firadmin\Repository\Eloquent\UserRepository();
-
-//Set attributes
-$user->username = 'email@example.com';
-$user->email = 'email@example.com';
-$user->password = 'password';
-
-//Save the user
-$user->forceSave();
-
-//Create role
-$roles = new Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository();		
-$roles->role = 'administrator';		
-			
-//Save the user role
-$user->roles()->save($roles);
+```bash
+php artisan create:user [--role[="..."]] username email password
 ```
 
 ##Register dashboard controller

@@ -36,6 +36,12 @@ class FiradminServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		//add the user seed command to the application
+		$this->app['create:user'] = $this->app->share(function($app)
+		{
+			return new Commands\GenerateSeedCommand($app);
+		});
+
 		//Load package config
 		$this->app['config']->package('firalabs/firadmin', __DIR__.'/../../config');
 		
@@ -54,6 +60,11 @@ class FiradminServiceProvider extends ServiceProvider {
 			//Include routes
 			include __DIR__.'/routes.php';
 		}
+		
+		//Add commands
+		$this->commands(
+			'create:user'
+		);
 	}
 
 	/**
