@@ -48,7 +48,13 @@
 								</a>
 								<ul class="dropdown-menu pull-right">          
 									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>"><?php echo Lang::get('firadmin::admin.show')?></a></li>
-									<li><a href="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id) . '/destroy';?>" onclick="return confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')"><?php echo Lang::get('firadmin::admin.delete')?></a></li>
+									<li>
+										<a href="#" onclick="if(confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')){ return $('form[data-user-id=<?php echo $user->id?>]').submit()}"><?php echo Lang::get('firadmin::admin.delete')?></a>
+										<form class="hidden" data-user-id="<?php echo $user->id?>" method="post" action="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>">
+										<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+										<input type="hidden" name="_method" value="DELETE">
+										</form>
+									</li>
 								</ul>
 							</div>
 						</td>

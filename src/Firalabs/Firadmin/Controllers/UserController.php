@@ -38,7 +38,7 @@ class UserController extends BaseController {
 	public function __construct(UserRepositoryInterface $user)
     {    	    	
     	//Add csrf filter when posting forms
-    	$this->beforeFilter('csrf', array('on' => array('post', 'put')));
+    	$this->beforeFilter('csrf', array('on' => array('post', 'put', 'delete')));
     	
     	//Create user object
     	$this->_users = $user;

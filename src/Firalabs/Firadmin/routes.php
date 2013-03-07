@@ -19,6 +19,6 @@ Route::group(array ('prefix' => 'admin' ), function ()
 Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 {	
 	Route::resource('user', 'Firalabs\Firadmin\Controllers\UserController');
-	Route::get('user/{id}/destroy', 'Firalabs\Firadmin\Controllers\UserController@destroy');
+	#Route::get('user/{id}/destroy', 'Firalabs\Firadmin\Controllers\UserController@destroy');
 	Route::put('user/{id}/change-password', 'Firalabs\Firadmin\Controllers\UserController@changePassword');
 });
