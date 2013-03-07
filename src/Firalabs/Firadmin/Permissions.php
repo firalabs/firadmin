@@ -4,8 +4,6 @@ use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Lang;
 
 /**
@@ -16,13 +14,6 @@ use Illuminate\Support\Facades\Lang;
  */
 class Permissions 
 {
-	
-	/**
-	 * The response object
-	 * 
-	 * @var Response
-	 */
-	protected $_response;
 	
 	/**
 	 * The acl object
@@ -37,7 +28,7 @@ class Permissions
 	 * @param array $resources
 	 */
 	public function __construct($roles, $resources)
-	{		
+	{				
 		//Create brand new Acl object
 		$this->acl = new Acl();
 		
@@ -80,13 +71,10 @@ class Permissions
 	 * @param string $privilege
 	 * @return bool
 	 */
-	public function isAllowed($resource, $privilege){
+	public function isAllowed($user, $resource, $privilege){
 		
-		//Reset response
-		$this->_response = null;
-		
-		//Get the current logged user roles
-		$roles = Auth::user()->getRoles();
+		//Get user roles
+		$roles = $user->getRoles();
 		
 		//Check each role if one of them was allowed
 		foreach ($roles as $role) {
@@ -95,18 +83,6 @@ class Permissions
 			}
 		}
 		
-		//Set the response
-		$this->_response = Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
-		
 		return false;
-	}
-	
-	/**
-	 * Get the response
-	 * 
-	 * @return Reponse
-	 */
-	public function getResponse(){
-		return $this->_response;
 	}
 }

@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
 use Firalabs\Firadmin\Facades\AjaxSupport;
 use Firalabs\Firadmin\Facades\Permissions;
-use \Firalabs\Firadmin\Repository\UserRepositoryInterface;
-use \Firalabs\Firadmin\Repository\UserRoleRepositoryInterface;
+use Firalabs\Firadmin\Repository\UserRepositoryInterface;
+use Firalabs\Firadmin\Repository\UserRoleRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Controller used for users managment
@@ -52,8 +53,8 @@ class UserController extends BaseController {
 	public function index()
 	{		
 		//Check permission
-		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 		
 		//Define the number of item we want to display per page
@@ -83,8 +84,8 @@ class UserController extends BaseController {
 	public function create()
 	{		
 		//Check permission
-		if(Permissions::isAllowed('user', 'create') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 		
 		//If we have roles set from input
@@ -104,8 +105,8 @@ class UserController extends BaseController {
 	public function store()
 	{			
 		//Check permission
-		if(Permissions::isAllowed('user', 'create') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 				
 		//Try saving the user in database
@@ -160,8 +161,8 @@ class UserController extends BaseController {
 	public function show($id)
 	{			
 		//Check permission
-		if(Permissions::isAllowed('user', 'read') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'read') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 		
 		//Get the user in database
@@ -205,8 +206,8 @@ class UserController extends BaseController {
 	public function edit($id)
 	{
 		//Check permission
-		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}	
 		
 		//Get the user data
@@ -249,8 +250,8 @@ class UserController extends BaseController {
 	public function update($id)
 	{
 		//Check permission
-		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 			
 		//Get the user in database
@@ -355,8 +356,8 @@ class UserController extends BaseController {
 	public function changePassword($id)
 	{
 		//Check permission
-		if(Permissions::isAllowed('user', 'update') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 			
 		//Get the user in database
@@ -424,8 +425,8 @@ class UserController extends BaseController {
 	public function destroy($id)
 	{
 		//Check permission
-		if(Permissions::isAllowed('user', 'delete') !== true){
-			return Permissions::getResponse();
+		if(Permissions::isAllowed(Auth::user(), 'user', 'delete') !== true){
+			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
 		}
 		
 		//Get the user in database
