@@ -4,16 +4,16 @@ Laravel 4 package used to create a beautiful admin panel for your application. T
 ##Features
 * User management with roles permissions
 * Base controller use for admin panel development
-* ACL component for application privileges management
-* Complete admin panel UI using Twitter bootstrap 2.3.1
+* ACL component for privilege management
+* Complete UI admin panel using Twitter Bootstrap 2.3
 * Complete login component with password reset and reminder
 * Easily configurable
 
-**Coming soon** :  Generators support to speed up your development process when using this package.
+**Coming soon** :  Generator support to speed up your development process when using this package.
 
 ##Installation
 
-Add `firalabs/firadmin` as a requirement to `composer.json`:
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `firalabs/firadmin`.
 
 ```javascript
 {
@@ -24,6 +24,12 @@ Add `firalabs/firadmin` as a requirement to `composer.json`:
 ```
 
 Update your packages with `composer update` or install with `composer install`.
+
+Once this operation completes, you need to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
+
+```php
+Firalabs\Firadmin\FiradminServiceProvider
+```
 
 
 ## Documentation
@@ -40,25 +46,17 @@ Update your packages with `composer update` or install with `composer install`.
 
 ##Configurations
 
-Add the package to your service provider in ```app/config/app.php```
-
-```php
-Firalabs\Firadmin\FiradminServiceProvider
-```
-
-Publish the package configuration to your laravel application to override some of the configuration options.
-
-**Executing The Config Publish Command**
+To configure the package to meet your needs, you must publish the configuration in your application before you can modify them. Run this artisan command.
 
 ```bash
 php artisan config:publish firalabs/firadmin
 ```
 
-The configuration files could now be found in `app/config/packages/firalabs/firadmin` folder. Just read the descriptions for each configurations to know what you can do.
+The configuration files could now be found in `app/config/packages/firalabs/firadmin`. Read the description for each configurations to know what you can override.
 
 ##Binding models
 
-You need to bind a user and a user role model to your application. By default, the package already provide those. Simply add this few lines in `app/start/global.php`
+You need to bind a user and a user role model to your application. By default, the package already provide those. Add this few lines in `app/start/global.php`
 
 ```php
 /*
@@ -70,11 +68,15 @@ App::bind('Firalabs\Firadmin\Repository\UserRepositoryInterface', 'Firalabs\Fira
 App::bind('Firalabs\Firadmin\Repository\UserRoleRepositoryInterface', 'Firalabs\Firadmin\Repository\Eloquent\UserRoleRepository'); //User role model
 ```
 
-**Note** : Don't forget to set the user model in the `app/config/auth.php` to `'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'`
+After that, you must set the same repository has a model in `app/config/auth.php`
+
+```
+'model' => 'Firalabs\Firadmin\Repository\Eloquent\UserRepository'
+```
 
 ##Migrations
 
-If you want to use the default models provided by the package, you must run this migration commands.
+If you want to use the default models provided in the package, you must run this migration commands.
 
 ```bash
 php artisan auth:reminders
@@ -84,7 +86,7 @@ php artisan migrate --package="firalabs/firadmin"
 
 ##Create default user
 
-You need to have at least one register user in your database to be able to connect on the admin panel. You can use this database seeder
+You need to have at least one register user in your database to be able to login. You can use this database seeder
 
 ```php
 //Create model object
@@ -108,7 +110,7 @@ $user->roles()->save($roles);
 
 ##Register dashboard controller
 
-You must set a route to the dashboard admin panel. We provide a default dashboard controller for testing purpose. Just add this few lines of code.
+You must set a route to the dashboard admin panel in `app/routes.php`. We provide a default dashboard controller for testing purpose.
 
 ```php
 /*
@@ -141,7 +143,7 @@ array(
 
 ##Permissions
 
-To handle privileges, simply use this code in your controller action method. If the current logged user is not allowed, the permissions library will redirect the user to the admin index with a error message.
+To handle privileges, simply use this code in your controller action method. If the current logged user is not allowed, the library will redirect the user to the admin index with a error message.
 
 ```php
 //Check permission
@@ -188,4 +190,4 @@ You can directly extend those in the packages or simply implement the interfaces
 
 ##Enjoy !!
 
-You admin panel is now completly configure. Just go to [http://localhost/admin](http://localhost/admin) to access the admin panel.
+You admin panel is now configured. Just go to [http://localhost/admin](http://localhost/admin) to access the admin panel.
