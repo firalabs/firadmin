@@ -1,5 +1,5 @@
 #Firadmin
-Basic admin panel for Laravel 4.
+Laravel 4 package used to create a beautiful admin panel for your application. This package is currently under active development, following Laravel 4.
 
 ##Features
 * User management with roles permissions

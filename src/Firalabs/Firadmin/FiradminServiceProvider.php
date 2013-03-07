@@ -45,7 +45,7 @@ class FiradminServiceProvider extends ServiceProvider {
 			Config::get('firadmin::resources')
 		);
 		
-		//Create the Ajax support objcet
+		//Create the Ajax support object
 		$this->app['ajaxsupport'] = new AjaxSupport();
         
 		//If we want to use the default routing provided by the package

@@ -71,6 +71,8 @@ class AjaxSupport
 	/**
 	 * Return true is a Ajax Request, we do not use directly Request::ajax() because we want to be able to 
 	 * show data as a json with a optional input parameter for testing purpose.
+	 * 
+	 * @return bool
 	 */
 	public function isAjaxRequest()
 	{
