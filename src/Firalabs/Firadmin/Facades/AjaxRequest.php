@@ -3,17 +3,17 @@
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Facade for Ajax support
+ * Facade for Ajax request
  * 
  * @author maxime.beaudoin
  */
-class AjaxSupport extends Facade
+class AjaxRequest extends Facade
 {
     /**
      * Get the registered component.
      *
      * @return object
      */
-    protected static function getFacadeAccessor(){ return 'ajaxsupport'; }
+    protected static function getFacadeAccessor(){ return 'ajaxrequest'; }
 
 }

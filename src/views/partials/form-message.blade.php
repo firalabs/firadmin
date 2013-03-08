@@ -10,10 +10,10 @@
 	<button class="close" data-dismiss="alert">×</button>	
 	@if (is_array(Session::get('reason')))
 		@foreach (Session::get('reason') as $reason)
-		{{{ trans($reason) }}}
+		{{ trans($reason) }}
 		@endforeach
 	@else
-		{{{ trans(Session::get('reason')) }}}
+		{{ trans(Session::get('reason')) }}
 	@endif
 </div>
 @endif

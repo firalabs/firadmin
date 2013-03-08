@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
-use Firalabs\Firadmin\Facades\AjaxSupport;
+use Firalabs\Firadmin\Facades\AjaxRequest;
 use Firalabs\Firadmin\Facades\Permissions;
 use Firalabs\Firadmin\Repository\UserRepositoryInterface;
 use Firalabs\Firadmin\Repository\UserRoleRepositoryInterface;
@@ -54,14 +54,16 @@ class UserController extends BaseController {
 	{		
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 		
 		//Define the number of item we want to display per page
 		$paginate = Input::get('take')?(int) Input::get('take'):Config::get('firadmin::paginate');
 		
 		//Check if it's a ajax request
-		if(AjaxSupport::isAjaxRequest()){
+		if(AjaxRequest::isAjax()){
 			
 			//Define the number of row we want to skip
 			$skip = Input::get('page')?(Input::get('page')-1)*$paginate:0;
@@ -85,7 +87,9 @@ class UserController extends BaseController {
 	{		
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 		
 		//If we have roles set from input
@@ -106,7 +110,9 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+			->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+			->with('error', 1);
 		}
 				
 		//Try saving the user in database
@@ -128,12 +134,13 @@ class UserController extends BaseController {
 			}
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::success(Lang::get('firadmin::admin.store-success')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array ('success' => Lang::get('firadmin::admin.store-success') ));
 			}
 	
 			//Redirect with a success message
-			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.store-success'));
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('success', Lang::get('firadmin::admin.store-success'));
 			
 		//Else, fail to save the user
 		} else {	
@@ -142,12 +149,17 @@ class UserController extends BaseController {
 			Input::flash();
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::error($this->_users->errors()->all(':message')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array(
+					'error' => 1, 
+					'reason' => $this->_users->errors()->all(':message') 
+				));
 			}
 		
 			//Redirect to the form with errors 
-			return Redirect::to(Config::get('firadmin::route.user') . '/create')->with('reason', $this->_users->errors()->all(':message<br>'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user') . '/create')
+				->with('reason', $this->_users->errors()->all(':message<br>'))
+				->with('error', 1);
 			
 		}
 	}
@@ -162,7 +174,9 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'read') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 		
 		//Get the user in database
@@ -172,18 +186,23 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array(
+					'error' => 1, 
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found') 
+				));
 			}
 				
 			//Redirect to the user index with errors
-			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))
+				->with('error', 1);
 			
 		//Else, great the user exist !
 		} else {
 		
 			//Check if it's a ajax request
-			if(AjaxSupport::isAjaxRequest()){
+			if(AjaxRequest::isAjax()){
 				
 				//Simply return the user data in JSON
 				return Response::json($user->toArray());
@@ -207,7 +226,9 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}	
 		
 		//Get the user data
@@ -217,12 +238,17 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array(
+					'error' => 1, 
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found') 
+				));
 			}
 				
 			//Redirect to users index with errors
-			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))
+				->with('error', 1);
 			
 		//Else the user exist great !
 		} else {
@@ -251,7 +277,9 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 			
 		//Get the user in database
@@ -261,12 +289,17 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array(
+					'error' => 1, 
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found') 
+				));
 			}
 				
 			//Redirect to user index with errors
-			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))
+				->with('error', 1);
 			
 		//Else, great the user exist !!
 		} else {
@@ -322,12 +355,13 @@ class UserController extends BaseController {
 				}	
 
 				//Returns a response in JSON format if it's an Ajax request
-				if(AjaxSupport::success( Lang::get('firadmin::admin.update-success')) === true){
-					return AjaxSupport::getResponse();
+				if(AjaxRequest::isAjax()){
+					return Response::json(array ('success' => Lang::get('firadmin::admin.update-success') ));
 				}
 		
 				//Redirect to index with success message
-				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-success'));
+				return Redirect::to(Config::get('firadmin::route.user'))
+					->with('success', Lang::get('firadmin::admin.update-success'));
 				
 			//Else, save validation fail
 			} else {
@@ -336,12 +370,17 @@ class UserController extends BaseController {
 				Input::flash();	
 
 				//Returns a response in JSON format if it's an Ajax request
-				if(AjaxSupport::error($user->errors()->all(':message')) === true){
-					return AjaxSupport::getResponse();
+				if(AjaxRequest::isAjax()){
+					return Response::json(array(
+						'error' => 1, 
+						'reason' => $user->errors()->all(':message') 
+					));
 				}
 			
 				//Redirect to the form with errors
-				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit')
+					->with('reason', $user->errors()->all(':message<br>'))
+					->with('error', 1);
 				
 			}
 		}
@@ -357,7 +396,9 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 			
 		//Get the user in database
@@ -367,12 +408,17 @@ class UserController extends BaseController {
 		if(!$user){
 			
 			//Returns a response in JSON format if it's an Ajax request
-			if(AjaxSupport::error(Lang::get('firadmin::admin.messages.user-not-found')) === true){
-				return AjaxSupport::getResponse();
+			if(AjaxRequest::isAjax()){
+				return Response::json(array(
+					'error' => 1, 
+					'reason' => Lang::get('firadmin::admin.messages.user-not-found') 
+				));
 			}
 				
 			//Redirect to user index with error
-			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('reason', Lang::get('firadmin::admin.messages.user-not-found'))
+				->with('error', 1);
 			
 		// Else, great the user exist !!!
 		} else {
@@ -391,12 +437,13 @@ class UserController extends BaseController {
 			if($user->save($rules)){
 				
 				//Returns a response in JSON format if it's an Ajax request
-				if(AjaxSupport::success( Lang::get('firadmin::admin.update-password-success') ) === true){
-					return AjaxSupport::getResponse();
+				if(AjaxRequest::isAjax()){
+					return Response::json(array ('success' => Lang::get('firadmin::admin.update-password-success') ));
 				}
 		
 				//Redirect to user index with success message
-				return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.update-password-success'));
+				return Redirect::to(Config::get('firadmin::route.user'))
+					->with('success', Lang::get('firadmin::admin.update-password-success'));
 				
 			//Else, save validation fail
 			} else {
@@ -405,12 +452,17 @@ class UserController extends BaseController {
 				Input::flash();
 				
 				//Returns a response in JSON format if it's an Ajax request
-				if( AjaxSupport::error( $user->errors()->all(':message')) === true){
-					return AjaxSupport::getResponse();
+				if( AjaxRequest::isAjax()){
+					return Response::json(array(
+						'error' => 1, 
+						'reason' => $user->errors()->all(':message') 
+					));
 				}
 				
 				//Redirect to the form with errors
-				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit#change-password')->with('reason', $user->errors()->all(':message<br>'))->with('error', 1);
+				return Redirect::to(Config::get('firadmin::route.user') . '/' . $id . '/edit#change-password')
+					->with('reason', $user->errors()->all(':message<br>'))
+					->with('error', 1);
 				
 			}
 		}
@@ -426,7 +478,9 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'delete') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufisant-permission') . '<br>')
+				->with('error', 1);
 		}
 		
 		//Get the user in database
@@ -436,12 +490,17 @@ class UserController extends BaseController {
 		if(!$user){
 				
 			//Returns a response in JSON format if it's an Ajax request
-			if( AjaxSupport::error( Lang::get('firadmin::admin.destroy-fail')) === true){
-				return AjaxSupport::getResponse();
+			if( AjaxRequest::isAjax() ){
+				return Response::json(array (
+					'error' => 1, 
+					'reason' => Lang::get('firadmin::admin.destroy-fail') 
+				));
 			}
 				
 			//Redirect to user index with errors
-			return Redirect::to(Config::get('firadmin::route.user'))->with('reason', Lang::get('firadmin::admin.destroy-fail'))->with('error', 1);
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('reason', Lang::get('firadmin::admin.destroy-fail'))
+				->with('error', 1);
 			
 		//Else, great the user exist !!
 		} else {		
@@ -453,13 +512,13 @@ class UserController extends BaseController {
 			$user->delete($id);	
 
 			//Returns a response in JSON format if it's an Ajax request
-			if( AjaxSupport::success( Lang::get('firadmin::admin.destroy-success') ) === true){
-				return AjaxSupport::getResponse();
+			if( AjaxRequest::isAjax()){
+				return Response::json(array ('success' => Lang::get('firadmin::admin.destroy-success') ));
 			}
 			
 			//Redirect to the user index with success message
-			return Redirect::to(Config::get('firadmin::route.user'))->with('success', Lang::get('firadmin::admin.destroy-success'));
+			return Redirect::to(Config::get('firadmin::route.user'))
+				->with('success', Lang::get('firadmin::admin.destroy-success'));
 		}
 	}
-
 }

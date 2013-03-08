@@ -52,7 +52,7 @@ class FiradminServiceProvider extends ServiceProvider {
 		);
 		
 		//Create the Ajax support object
-		$this->app['ajaxsupport'] = new AjaxSupport();
+		$this->app['ajaxrequest'] = new AjaxRequest();
         
 		//If we want to use the default routing provided by the package
 		if(Config::get('firadmin::default_routing') === true){
