@@ -4,9 +4,8 @@ Laravel 4 package used to create a beautiful admin panel for your application. T
 [![Build Status](https://travis-ci.org/firalabs/firadmin.png)](https://travis-ci.org/firalabs/firadmin)
 
 ##Features
-* User management with roles permissions
+* Resourceful User management with roles permissions
 * Base controller use for admin panel development
-* All Resourceful controller method compatible with AJAX request
 * ACL component for privilege management
 * Complete UI admin panel using Twitter Bootstrap 2.3
 * Complete login component with password reset and reminder
@@ -44,6 +43,7 @@ Firalabs\Firadmin\FiradminServiceProvider
 * [Register dashboard controller](#register-dashboard-controller)
 * [Facades](#facades)
 * [Permissions](#permissions)
+* [Ajax request](#ajax-request)
 * [Admin controller development](#admin-controller-development)
 * [Custom models repositories](#custom-models-repositories)
 
@@ -140,6 +140,9 @@ if(Permissions::isAllowed(Auth::user(), 'user', 'read') !== true){
 		->with('error', 1);
 }
 ```
+
+##Ajax Request
+Documentation coming soon ...
 
 ##Admin controller development
 
