@@ -6,6 +6,7 @@ Laravel 4 package used to create a beautiful admin panel for your application. T
 ##Features
 * User management with roles permissions
 * Base controller use for admin panel development
+* All Resourceful controller method compatible with AJAX request
 * ACL component for privilege management
 * Complete UI admin panel using Twitter Bootstrap 2.3
 * Complete login component with password reset and reminder
