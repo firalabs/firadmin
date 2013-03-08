@@ -1,5 +1,5 @@
 #Firadmin
-Laravel 4 package used to create a beautiful admin panel for your application. This package is currently under active development, following Laravel 4.
+Laravel 4 package used to create a beautiful admin panel with default user managment. This package is currently under active development, following Laravel 4.
 
 [![Build Status](https://travis-ci.org/firalabs/firadmin.png)](https://travis-ci.org/firalabs/firadmin)
 
