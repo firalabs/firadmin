@@ -56,7 +56,9 @@ class LoginController extends BaseController {
 		if ( !Auth::attempt($credentials, $remember) ){
 			
 			//Redirect to login page
-			return Redirect::to(Config::get('firadmin::route.login'))->with('reason', Lang::get('firadmin::admin.messages.attempt-fail'))->with('error', 1);
+			return Redirect::route('login')
+				->with('reason', Lang::get('firadmin::admin.messages.attempt-fail'))
+				->with('error', 1);
 			
 		//Else attempt succed
 		} else {
@@ -77,7 +79,8 @@ class LoginController extends BaseController {
 		Auth::logout();
 		
 		//Redirect to login page
-		return Redirect::to(Config::get('firadmin::route.login'))->with('success', Lang::get('firadmin::admin.messages.logout-success'));
+		return Redirect::route('login')
+			->with('success', Lang::get('firadmin::admin.messages.logout-success'));
 	}
 	
 	/**
@@ -115,7 +118,7 @@ class LoginController extends BaseController {
 	
 	        $user->forceSave();
 	
-	        return Redirect::to(Config::get('firadmin::route.login'));
+	        return Redirect::route('login');
 	    });
 	}
 }

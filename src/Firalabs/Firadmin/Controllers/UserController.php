@@ -53,8 +53,8 @@ class UserController extends BaseController {
 	public function index()
 	{		
 		//Check permission
-		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+		if(Permissions::isAllowed(Auth::user(), 'user', 'read') !== true){
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
@@ -87,7 +87,7 @@ class UserController extends BaseController {
 	{		
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
@@ -110,7 +110,7 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'create') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 			->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 			->with('error', 1);
 		}
@@ -174,7 +174,7 @@ class UserController extends BaseController {
 	{			
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'read') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
@@ -226,7 +226,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}	
@@ -277,7 +277,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
@@ -396,7 +396,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'update') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
@@ -478,7 +478,7 @@ class UserController extends BaseController {
 	{
 		//Check permission
 		if(Permissions::isAllowed(Auth::user(), 'user', 'delete') !== true){
-			return Redirect::to(Config::get('firadmin::route.login'))
+			return Redirect::route('login')
 				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
 				->with('error', 1);
 		}
