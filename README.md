@@ -183,3 +183,5 @@ You can directly extend those in the packages or simply implement the interfaces
 ##Enjoy !!
 
 You admin panel is now configured. Just go to [http://localhost/admin](http://localhost/admin) to access the admin panel.
+
+Feel free to contact me !!!
