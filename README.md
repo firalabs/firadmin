@@ -114,14 +114,14 @@ Route::group(array ('before' => 'auth', 'prefix' => 'admin' ), function ()
 
 We have two available facades:
 * Permissions
-* AjaxSupport
+* AjaxRequest
 
 You can add this facade to your ```app/config/app.php``` file.
 
 ```php
 array(
 	'aliases' => array(
-		'AjaxSupport' => 'Firalabs\Firadmin\Facades\AjaxSupport',
+		'AjaxRequest' => 'Firalabs\Firadmin\Facades\AjaxRequest',
 		'Permissions' => 'Firalabs\Firadmin\Facades\Permissions'
 	)
 );
