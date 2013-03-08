@@ -129,12 +129,14 @@ array(
 
 ##Permissions
 
-To handle privileges, simply use this code in your controller action method. If the current logged user is not allowed, the library will redirect the user to the admin index with a error message.
+To handle privileges on the current logged user, simply use this code in your controller action method..
 
 ```php
 //Check permission
 if(Permissions::isAllowed('user', 'update') !== true){
-	return Permissions::getResponse();
+	return Redirect::to(Config::get('firadmin::route.login'))
+				->with('reason', Lang::get('firadmin::admin.messages.insufficient-permission') . '<br>')
+				->with('error', 1);
 }
 ```
 

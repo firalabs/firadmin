@@ -5,7 +5,7 @@ return array(
 	'messages' => array(
 		'attempt-fail'   => 'Attempt failed',
 		'logout-success' => 'Logout success',
-		'insufisant-permission' => 'Insufisant permission',
+		'insufficient-permission' => 'Insufficient permission',
 		'user-not-found' => 'User not found'
 	),
 	'store-success' => 'Store sucess',
