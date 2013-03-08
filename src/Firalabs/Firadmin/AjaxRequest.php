@@ -29,9 +29,10 @@ class AjaxRequest
 	}
 	
 	/**
-	 * Return true is a Ajax Request, we do not use directly Request::ajax() because we want to be able to 
-	 * show data as a json with a optional input parameter for testing purpose.
+	 * Return true is a Ajax Request, we do not use directly Request::ajax() because we want
+	 * to add the possibility to set the request has ajax with a simple param in the request
 	 * 
+	 * @example http://localhost/admin/user/?request=ajax 
 	 * @return bool
 	 */
 	public function isAjax()

@@ -15,7 +15,8 @@
         "zendframework/zend-permissions-acl": "2.1.*@dev"
     },    
     "require-dev": {
-        "mockery/mockery": "0.7.2"
+        "mockery/mockery": "0.7.2",        
+        "illuminate/auth": "4.0.*@dev"
     },
     "autoload": {
         "classmap": [
