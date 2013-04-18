@@ -15,7 +15,7 @@ class FiralabsFiradminCreateUsersRolesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('role');
+			$table->string('role');
 			$table->timestamps();		
 		});
 	}
