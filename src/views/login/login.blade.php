@@ -41,7 +41,7 @@
 		
 		<?php echo View::make('firadmin::partials.form-message')?>
 		
-		<input type="text" name="username" class="input-block-level" placeholder="Email address">
+		<input type="text" name="username" class="input-block-level" placeholder="Username">
 		<input type="password" name="password" class="input-block-level" placeholder="Password">
 		<div class="pull-right"><a href="<?php echo URL::to(Config::get('firadmin::route.login') . '/forgot-password')?>"><?php echo Lang::get('firadmin::admin.forgot-password')?></a></div>
 		<label class="checkbox">
