@@ -11,7 +11,7 @@
 		<div class="span12">
 							
 			<form method="post" action="<?php echo URL::to(Config::get('firadmin::route.user'));?>">
-			<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+			<?php echo Form::token();?>
 							
 				<fieldset>
 					
@@ -35,7 +35,7 @@
 					<?php }?>
 					
 					<div class="form-actions">
-						<?php echo Form::button(Lang::get('firadmin::admin.store-user'), array('class' => 'btn btn-primary'));?>
+						<?php echo Form::submit(Lang::get('firadmin::admin.store-user'), array('class' => 'btn btn-primary'));?>
 						<a href="<?php echo URL::to(Config::get('firadmin::route.user'));?>" class="btn"><?php echo Lang::get('firadmin::admin.cancel')?></a>
 					</div>
 					

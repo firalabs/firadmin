@@ -51,7 +51,7 @@
 									<li>
 										<a href="#" onclick="if(confirm('<?php echo Lang::get('firadmin::admin.delete-confirm')?>')){ return $('form[data-user-id=<?php echo $user->id?>]').submit()}"><?php echo Lang::get('firadmin::admin.delete')?></a>
 										<form class="hidden" data-user-id="<?php echo $user->id?>" method="post" action="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>">
-										<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+										<?php echo Form::token();?>
 										<input type="hidden" name="_method" value="DELETE">
 										</form>
 									</li>

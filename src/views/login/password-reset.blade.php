@@ -36,7 +36,7 @@
 
 	<form class="form-signin" method="post">
 	
-		<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+		<?php echo Form::token();?>
 		<input type="hidden" name="token" value="{{ $token }}">
 		
 		<h3 class="form-signin-heading"><?php echo Lang::get('firadmin::admin.reset-your-password')?></h3>

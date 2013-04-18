@@ -27,7 +27,7 @@ $('document').ready(function(){
 							
 				<div class="tab-pane active" id="profile">
 					<form method="post" action="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id);?>">
-						<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+						<?php echo Form::token();?>
 						<input type="hidden" name="_method" value="PUT">
 						
 						<fieldset>
@@ -46,7 +46,7 @@ $('document').ready(function(){
 							<?php }?>
 							
 							<div class="form-actions">
-								<?php echo Form::button(Lang::get('firadmin::admin.update-user'), array('class' => 'btn btn-primary'));?>
+								<?php echo Form::submit(Lang::get('firadmin::admin.update-user'), array('class' => 'btn btn-primary'));?>
 								<a href="<?php echo URL::to(Config::get('firadmin::route.user'));?>" class="btn"><?php echo Lang::get('firadmin::admin.cancel')?></a>
 							</div>
 							
@@ -56,7 +56,7 @@ $('document').ready(function(){
 				
 				<div class="tab-pane" id="change-password">
 					<form method="post" action="<?php echo URL::to(Config::get('firadmin::route.user') . '/' . $user->id . '/change-password');?>">
-						<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+						<?php echo Form::token();?>
 						<input type="hidden" name="_method" value="PUT">
 						
 						<fieldset>
