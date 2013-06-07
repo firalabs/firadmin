@@ -2,6 +2,8 @@
 Laravel 4 package used to create a beautiful admin panel with default user managment. This package is currently under active development, following Laravel 4.
 
 [![Build Status](https://travis-ci.org/firalabs/firadmin.png)](https://travis-ci.org/firalabs/firadmin)
+[![Total Downloads](https://poser.pugx.org/firalabs/firadmin/downloads.png)](https://packagist.org/packages/firalabs/firadmin)
+[![Latest Stable Version](https://poser.pugx.org/firalabs/firadmin/v/stable.png)](https://packagist.org/packages/firalabs/firadmin)
 
 ##Features
 * Resourceful User management with roles permissions
