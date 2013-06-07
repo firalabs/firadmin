@@ -11,12 +11,12 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "dev-master",
-        "laravelbook/ardent": "dev-master",
-        "zendframework/zend-permissions-acl": "2.1.*@dev"
+        "laravelbook/ardent": "1.0.*",        
+        "illuminate/auth": "dev-master",
+        "zendframework/zend-permissions-acl": "2.1.*"
     },    
     "require-dev": {
-        "mockery/mockery": "0.7.2",        
-        "illuminate/auth": "4.0.*@dev"
+        "mockery/mockery": "dev-master"
     },
     "autoload": {
         "classmap": [
