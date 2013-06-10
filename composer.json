@@ -10,9 +10,9 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "dev-master",
+        "illuminate/support": "4.0.*",
         "laravelbook/ardent": "1.0.*",        
-        "illuminate/auth": "dev-master",
+        "illuminate/auth": "4.0.*",
         "zendframework/zend-permissions-acl": "2.1.*"
     },    
     "require-dev": {
