@@ -51,8 +51,8 @@ Firalabs\Firadmin\FiradminServiceProvider
 * [Custom models repositories](#custom-models-repositories)
 
 ##Screenshots
-[![firadmin login](https://github.com/altercation/solarized/raw/master/screenshots/login.png)](#screenshots-login)
-[![firadmin user-admin](https://github.com/altercation/solarized/raw/master/screenshots/user-admin.png)](#screenshots-user-admin)
+[![firadmin login](https://raw.github.com/firalabs/firadmin/master/screenshots/login.png)](#screenshots-login)
+[![firadmin user-admin](https://raw.github.com/firalabs/firadmin/master/screenshots/user-admin.png)](#screenshots-user-admin)
 
 ##Configurations
 
