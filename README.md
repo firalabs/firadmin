@@ -96,11 +96,28 @@ php artisan migrate --package="firalabs/firadmin"
 
 ##Create default user
 
-You need to have at least one register user in your database. We provided a easy way to create a user using artisan command.
+You need to have at least one register user in your database. We provided a easy way to create a user using artisan command. Use `--role=""administrator""` when setting up a user for the first time.
 
 ```bash
 php artisan create:user [--role[="..."]] username email password
 ```
+
+You can also change the role names Firadmin checks on `app/config/packages/firalabs/firadmin/config.php`.
+
+```php
+'roles' => array(
+	/*
+	 * Grant all privileges to the administrator roles.
+	 */
+	'administrator'  => true,
+
+	/*
+	 * Granted basics CRUD privileges to the user administrator role on the user resource.
+	 */
+	'user_administrator' => array('user' => array('create', 'read', 'update', 'delete'))
+)
+```
+
 
 ##Register dashboard controller
 
