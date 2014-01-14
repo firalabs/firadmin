@@ -3,7 +3,7 @@
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
-use Illuminate\Routing\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 /**
