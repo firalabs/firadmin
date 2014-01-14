@@ -13,9 +13,9 @@ Laravel 4 package used to create a beautiful admin panel with default user manag
 * Complete login component with password reset and reminder
 * Easily configurable
 
-**Coming soon** :  Generator support to speed up your development process when using this package.
-
 ##Installation
+
+For laravel 4.0 use firadmin version 1.0.* and for laravel 4.1 use firadmin version 1.1.* and above.
 
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `firalabs/firadmin`.
 
