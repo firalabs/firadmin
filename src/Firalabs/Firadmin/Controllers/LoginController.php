@@ -56,7 +56,7 @@ class LoginController extends BaseController {
 		if ( !Auth::attempt($credentials, $remember) ){
 			
 			//Redirect to login page
-			return Redirect::route('get admin/login')
+			return Redirect::to('admin/login')
 				->with('reason', Lang::get('firadmin::admin.messages.attempt-fail'))
 				->with('error', 1);
 			
