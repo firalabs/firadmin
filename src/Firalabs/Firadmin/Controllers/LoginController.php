@@ -79,7 +79,7 @@ class LoginController extends BaseController {
 		Auth::logout();
 		
 		//Redirect to login page
-		return Redirect::route('get admin/login')
+		return Redirect::to('admin/login')
 			->with('success', Lang::get('firadmin::admin.messages.logout-success'));
 	}
 	
@@ -118,7 +118,7 @@ class LoginController extends BaseController {
 	
 	        $user->forceSave();
 	
-	        return Redirect::route('get admin/login');
+	        return Redirect::to('admin/login');
 	    });
 	}
 }
