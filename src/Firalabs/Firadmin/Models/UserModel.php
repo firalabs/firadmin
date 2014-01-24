@@ -31,7 +31,7 @@ class UserModel extends Ardent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $guarded = array('created_at', 'updated_at');
+	protected $guarded = array('created_at', 'updated_at', 'roles');
 	
 	/**
 	 * Automatically Hydrate Ardent Entities
