@@ -1,3 +1,6 @@
+## !!! DEPRECATED !!!
+**This package is no longer actively maintained. The next version of Laravel 5 should propably contain all basic stuff you need to start a admin panel.**
+
 #Firadmin
 Laravel 4 package used to create a beautiful admin panel with default user managment. This package is currently under active development, following Laravel 4.
 
